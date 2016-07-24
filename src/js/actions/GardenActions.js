@@ -8,6 +8,19 @@ const SpaceActions = {
       flower,
     });
   },
+  addPlayer: (player) => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_ADD_PLAYER,
+      player,
+    });
+  },
+  addConnection: (playerId, flowerId) => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_ADD_CONNECTION,
+      playerId,
+      flowerId,
+    });
+  },
 };
 
 export default SpaceActions;

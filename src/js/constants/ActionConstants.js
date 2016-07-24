@@ -1,5 +1,7 @@
 const ActionConstants = {
   GARDEN_ADD_FLOWER: "GARDEN_ADD_FLOWER",
+  GARDEN_ADD_PLAYER: "GARDEN_ADD_PLAYER",
+  GARDEN_ADD_CONNECTION: "GARDEN_ADD_CONNECTION",
 };
 
 export default ActionConstants;

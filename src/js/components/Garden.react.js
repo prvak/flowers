@@ -12,17 +12,26 @@ class Garden extends React.Component {
   render() {
     const flowers = this.props.flowers;
     const connections = this.props.connections;
+    const players = this.props.players;
     const elements = [];
-    flowers.forEach((flower, index) => {
-      const key = `f${index}`;
+    flowers.forEach((flower, flowerId) => {
+      const key = `f-${flowerId}`;
       elements.push(<Flower key={key} flower={flower} />);
     });
-    connections.forEach((flower, index) => {
-      const key = `c${index}`;
-      const player = connections.get("player");
-      const start = flowers.get(connections.get("from")).get("position");
-      const end = flowers.get(connections.get("from")).get("position");
-      elements.push(<Connection key={key} player={player} start={start} end={end} />);
+    connections.forEach((playerConnections, playerId) => {
+      let lastFlowerId = null;
+      const player = players.get(playerId);
+      playerConnections.forEach((flowerId) => {
+        if (lastFlowerId === null) {
+          lastFlowerId = flowerId;
+        } else {
+          const start = flowers.get(lastFlowerId).get("position");
+          const end = flowers.get(flowerId).get("position");
+          const key = `c-${playerId}-${lastFlowerId}-${flowerId}`;
+          elements.push(<Connection key={key} player={player} start={start} end={end} />);
+          lastFlowerId = flowerId;
+        }
+      });
     });
     return <div className="garden">{elements}</div>;
   }
@@ -31,6 +40,7 @@ class Garden extends React.Component {
 Garden.propTypes = {
   flowers: React.PropTypes.object.isRequired,
   connections: React.PropTypes.object.isRequired,
+  players: React.PropTypes.object.isRequired,
 };
 
 export default Garden;

@@ -14,6 +14,7 @@ class GardenStore extends EventEmitter {
     super();
     this.flowers = new Immutable.List([]);
     this.connections = new Immutable.List([]);
+    this.players = new Immutable.List([]);
   }
 
   emitChange() {
@@ -36,8 +37,23 @@ class GardenStore extends EventEmitter {
     return this.connections;
   }
 
+  getPlayers() {
+    return this.connections;
+  }
+
   addFlower(flower) {
-    this.flowers = this.flowers.push(new Immutable.Map(flower));
+    this.flowers = this.flowers.push(Immutable.fromJS(flower));
+  }
+
+  addPlayer(player) {
+    this.players = this.players.push(Immutable.fromJS(player));
+    this.connections = this.connections.push(new Immutable.List([]));
+  }
+
+  addConnection(playerId, flowerId) {
+    const playerConnections = this.connections.get(playerId);
+    const newPlayerConnections = playerConnections.push(flowerId);
+    this.connections = this.connections.set(playerId, newPlayerConnections);
   }
 }
 
@@ -48,6 +64,14 @@ AppDispatcher.register((action) => {
   switch (action.actionType) {
     case ActionConstants.GARDEN_ADD_FLOWER:
       store.addFlower(action.flower);
+      store.emitChange();
+      break;
+    case ActionConstants.GARDEN_ADD_PLAYER:
+      store.addPlayer(action.player);
+      store.emitChange();
+      break;
+    case ActionConstants.GARDEN_ADD_CONNECTION:
+      store.addConnection(action.playerId, action.flowerId);
       store.emitChange();
       break;
     default:

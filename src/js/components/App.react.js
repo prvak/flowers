@@ -10,6 +10,7 @@ function getAppState() {
   return {
     flowers: gardenStore.getFlowers(),
     connections: gardenStore.getConnections(),
+    players: gardenStore.getPlayers(),
     windowSize: HtmlUtils.getWindowSize(),
   };
 }
@@ -27,7 +28,7 @@ class App extends React.Component {
     const f1 = {
       position: {
         x: 0.3,
-        y: 0.5,
+        y: 0.3,
       },
       color: GardenConstants.FLOWER_COLOR_WHITE,
       size: GardenConstants.FLOWER_SIZE_4,
@@ -35,13 +36,16 @@ class App extends React.Component {
     GardenActions.addFlower(f1);
     const f2 = {
       position: {
-        x: 0.6,
-        y: 0.5,
+        x: 0.7,
+        y: 0.7,
       },
       color: GardenConstants.FLOWER_COLOR_RED,
       size: GardenConstants.FLOWER_SIZE_5,
     };
     GardenActions.addFlower(f2);
+    GardenActions.addPlayer({ color: "black" });
+    GardenActions.addConnection(0, 0);
+    GardenActions.addConnection(0, 1);
   }
 
   componentDidMount() {
@@ -59,6 +63,7 @@ class App extends React.Component {
     const garden = (<Garden
       flowers={this.state.flowers}
       connections={this.state.connections}
+      players={this.state.connections}
     />);
     return <div id="app">{garden}</div>;
   }
