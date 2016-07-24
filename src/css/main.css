@@ -1,0 +1,38 @@
+#main {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+#app {
+  position: absolute;
+  background-color: purple;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  margin: auto;
+}
+
+.garden {
+  position: absolute;
+  box-sizing: border-box;
+  border: solid black 1px;
+  background-color: green;
+  color: black;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.flower {
+  position: absolute;
+  border-radius: 50%;
+}
