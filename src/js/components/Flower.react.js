@@ -21,11 +21,11 @@ class Flower extends React.Component {
       marginTop: `${-size / 2}rem`,
       marginLeft: `${-size / 2}rem`,
       transform: `rotate(${rotation}deg)`,
-      backgroundColor: `${color}`,
     };
+    const classNames = `flower ${color}`;
     return (
       <div
-        className="flower"
+        className={classNames}
         style={style}
       >
       </div>

@@ -24,15 +24,24 @@ class App extends React.Component {
     this._onResize = () => {
       this.setState(getAppState());
     };
-    const flower = {
+    const f1 = {
       position: {
-        x: 0.5,
+        x: 0.3,
         y: 0.5,
       },
       color: GardenConstants.FLOWER_COLOR_WHITE,
       size: GardenConstants.FLOWER_SIZE_4,
     };
-    GardenActions.addFlower(flower);
+    GardenActions.addFlower(f1);
+    const f2 = {
+      position: {
+        x: 0.6,
+        y: 0.5,
+      },
+      color: GardenConstants.FLOWER_COLOR_RED,
+      size: GardenConstants.FLOWER_SIZE_5,
+    };
+    GardenActions.addFlower(f2);
   }
 
   componentDidMount() {
