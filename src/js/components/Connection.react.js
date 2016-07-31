@@ -8,28 +8,26 @@ class Connection extends React.Component {
   render() {
     const start = this.props.start.toJS();
     const end = this.props.end.toJS();
-    const x = (start.x + end.x) / 2;
-    const y = (start.y + end.y) / 2;
-    const length = Math.sqrt(Math.pow(start.x - end.x, 2) + Math.pow(start.y - end.y, 2));
-    const rotation = 45;
+    const ux = end.x - start.x;
+    const uy = end.y - start.y;
+    const height = 0.025;
+    const width = Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2));
+    const x = start.x;
+    const y = start.y - height / 2;
+    const rotation = -Math.atan2(ux, uy) + Math.PI / 2;
     const color = "red";
-    console.log(length);
     const style = {
+      width: `${width * 100}%`,
+      height: `${height * 100}%`,
       left: `${x * 100}%`,
       top: `${y * 100}%`,
-      width: `${length * 100}%`,
-      height: `${1}rem`,
-      marginTop: `${-(start.y - end.y) * 100 / 2}%`,
-      marginLeft: `${-(start.x - end.x) * 100 / 2}%`,
-      transform: `rotate(${rotation}deg)`,
+      position: "absolute",
+      transform: `rotate(${rotation}rad)`,
+      transformOrigin: "left center",
     };
     const classNames = `connection ${color}`;
     return (
-      <div
-        className={classNames}
-        style={style}
-      >
-      </div>
+      <div className={classNames} style={style}></div>
     );
   }
 }

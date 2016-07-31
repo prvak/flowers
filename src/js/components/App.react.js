@@ -33,19 +33,29 @@ class App extends React.Component {
       color: GardenConstants.FLOWER_COLOR_WHITE,
       size: GardenConstants.FLOWER_SIZE_4,
     };
-    GardenActions.addFlower(f1);
     const f2 = {
       position: {
         x: 0.7,
-        y: 0.7,
+        y: 0.5,
       },
       color: GardenConstants.FLOWER_COLOR_RED,
       size: GardenConstants.FLOWER_SIZE_5,
     };
+    const f3 = {
+      position: {
+        x: 0.1,
+        y: 0.8,
+      },
+      color: GardenConstants.FLOWER_COLOR_WHITE,
+      size: GardenConstants.FLOWER_SIZE_5,
+    };
+    GardenActions.addFlower(f1);
     GardenActions.addFlower(f2);
+    GardenActions.addFlower(f3);
     GardenActions.addPlayer({ color: "black" });
     GardenActions.addConnection(0, 0);
     GardenActions.addConnection(0, 1);
+    GardenActions.addConnection(0, 2);
   }
 
   componentDidMount() {
