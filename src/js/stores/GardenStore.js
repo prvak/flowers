@@ -38,7 +38,7 @@ class GardenStore extends EventEmitter {
   }
 
   getPlayers() {
-    return this.connections;
+    return this.players;
   }
 
   addFlower(flower) {
