@@ -3,7 +3,6 @@ import Immutable from "immutable";
 
 import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
-import GardenConstants from "../constants/GardenConstants";
 
 const EventEmitter = events.EventEmitter;
 // Name of the event that is emmited on each store change.
@@ -15,6 +14,7 @@ class GardenStore extends EventEmitter {
     this.flowers = new Immutable.List([]);
     this.connections = new Immutable.List([]);
     this.players = new Immutable.List([]);
+    this.activePlayerId = 0;
   }
 
   emitChange() {
@@ -41,6 +41,10 @@ class GardenStore extends EventEmitter {
     return this.players;
   }
 
+  getActivePlayer() {
+    return this.players.get(this.activePlayerId);
+  }
+
   addFlower(flower) {
     this.flowers = this.flowers.push(Immutable.fromJS(flower));
   }
@@ -50,10 +54,11 @@ class GardenStore extends EventEmitter {
     this.connections = this.connections.push(new Immutable.List([]));
   }
 
-  addConnection(playerId, flowerId) {
-    const playerConnections = this.connections.get(playerId);
+  addConnection(flowerId) {
+    const playerConnections = this.connections.get(this.activePlayerId);
     const newPlayerConnections = playerConnections.push(flowerId);
-    this.connections = this.connections.set(playerId, newPlayerConnections);
+    this.connections = this.connections.set(this.activePlayerId, newPlayerConnections);
+    this.activePlayerId = (this.activePlayerId + 1) % this.players.size;
   }
 }
 
@@ -71,7 +76,7 @@ AppDispatcher.register((action) => {
       store.emitChange();
       break;
     case ActionConstants.GARDEN_ADD_CONNECTION:
-      store.addConnection(action.playerId, action.flowerId);
+      store.addConnection(action.flowerId);
       store.emitChange();
       break;
     default:

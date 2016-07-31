@@ -6,7 +6,7 @@ class Flower extends React.Component {
     super();
     this.onClick = (event) => {
       console.log(this.props.flowerId);
-      GardenActions.addConnection(0, this.props.flowerId);
+      GardenActions.addConnection(this.props.flowerId);
     }
   }
 

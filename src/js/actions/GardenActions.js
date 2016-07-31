@@ -14,10 +14,9 @@ const SpaceActions = {
       player,
     });
   },
-  addConnection: (playerId, flowerId) => {
+  addConnection: (flowerId) => {
     AppDispatcher.dispatch({
       actionType: ActionConstants.GARDEN_ADD_CONNECTION,
-      playerId,
       flowerId,
     });
   },

@@ -11,6 +11,7 @@ function getAppState() {
     flowers: gardenStore.getFlowers(),
     connections: gardenStore.getConnections(),
     players: gardenStore.getPlayers(),
+    activePlayer: gardenStore.getActivePlayer(),
     windowSize: HtmlUtils.getWindowSize(),
   };
 }
@@ -79,6 +80,12 @@ class App extends React.Component {
       connections={this.state.connections}
       players={this.state.players}
     />);
+    const activePlayer = this.state.activePlayer;
+    console.log(activePlayer);
+    if (activePlayer) {
+      const color = activePlayer.get("color");
+      return <div className={color} id="app">{garden}</div>;
+    }
     return <div id="app">{garden}</div>;
   }
 }
