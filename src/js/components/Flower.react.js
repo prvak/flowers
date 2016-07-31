@@ -1,8 +1,13 @@
 import React from "react";
+import GardenActions from "../actions/GardenActions";
 
 class Flower extends React.Component {
   constructor() {
     super();
+    this.onClick = (event) => {
+      console.log(this.props.flowerId);
+      GardenActions.addConnection(0, this.props.flowerId);
+    }
   }
 
   render() {
@@ -27,6 +32,7 @@ class Flower extends React.Component {
       <div
         className={classNames}
         style={style}
+        onClick={this.onClick}
       >
       </div>
     );
@@ -34,6 +40,7 @@ class Flower extends React.Component {
 }
 
 Flower.propTypes = {
+  flowerId: React.PropTypes.number.isRequired,
   flower: React.PropTypes.object.isRequired,
 };
 

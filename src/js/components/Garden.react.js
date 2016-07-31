@@ -16,7 +16,7 @@ class Garden extends React.Component {
     const elements = [];
     flowers.forEach((flower, flowerId) => {
       const key = `f-${flowerId}`;
-      elements.push(<Flower key={key} flower={flower} />);
+      elements.push(<Flower key={key} flower={flower} flowerId={flowerId} />);
     });
     connections.forEach((playerConnections, playerId) => {
       let lastFlowerId = null;

@@ -60,9 +60,6 @@ class App extends React.Component {
     ]);
     GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_BLUE });
     GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_GREEN });
-    GardenActions.addConnection(0, 0);
-    GardenActions.addConnection(0, 1);
-    GardenActions.addConnection(0, 2);
   }
 
   componentDidMount() {
