@@ -21,7 +21,6 @@
 .garden {
   position: absolute;
   box-sizing: border-box;
-  border: solid black 1px;
   background-color: green;
   color: black;
   top: 0px;
@@ -30,6 +29,11 @@
   right: 0px;
   margin: auto;
   overflow: hidden;
+  height: 100vm; /* IE9 fallback */
+  width: 100vm; /* IE9 fallback */
+  width: 100vmin;
+  height: 100vmin;
+  position: absolute;
 }
 
 .flower {
