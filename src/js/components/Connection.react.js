@@ -11,7 +11,7 @@ class Connection extends React.Component {
     const end = this.props.end.toJS();
     const ux = end.x - start.x;
     const uy = end.y - start.y;
-    const height = 0.015;
+    const height = 0.03;
     const width = Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2));
     const x = start.x;
     const y = start.y - height / 2;
