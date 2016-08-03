@@ -12,7 +12,7 @@
     "clean": "rm export/ -rf",
     "makedirs": "mkdir -p export/js/",
     "minify": "uglifyjs --compress --output export/js/bundle.js -- src/js/bundle.js",
-    "copyfiles": "cp -r src/css src/index.html export/",
+    "copyfiles": "cp -r src/css src/index.html src/graphics export/",
     "export": "NODE_ENV=production npm run makedirs && npm run build && npm run minify && npm run copyfiles"
   },
   "author": "prvak",
