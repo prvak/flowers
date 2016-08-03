@@ -5,7 +5,6 @@ class Flower extends React.Component {
   constructor() {
     super();
     this.onClick = (event) => {
-      console.log(this.props.flowerId);
       GardenActions.addConnection(this.props.flowerId);
     }
   }
@@ -15,7 +14,7 @@ class Flower extends React.Component {
     const position = flower.position;
     const x = position.x;
     const y = position.y;
-    const size = flower.size;
+    const size = 5;
     const color = flower.color;
     const rotation = 0;
     const style = {
@@ -26,6 +25,7 @@ class Flower extends React.Component {
       marginTop: `${-size / 2}rem`,
       marginLeft: `${-size / 2}rem`,
       transform: `rotate(${rotation}deg)`,
+      background: "none",
     };
     const classNames = `flower ${color}`;
     return (

@@ -27,6 +27,7 @@ class App extends React.Component {
       this.setState(getAppState());
     };
     const createFlowers = (color, positions) => {
+      const SIZE = 1494;
       const sizes = [
         GardenConstants.FLOWER_SIZE_4,
         GardenConstants.FLOWER_SIZE_5,
@@ -35,29 +36,33 @@ class App extends React.Component {
         GardenConstants.FLOWER_SIZE_8,
       ];
       for (let i = 0; i < positions.length; i++) {
-        const position = positions[i];
-        if (position === null) {
+        const positionPixels = positions[i];
+        if (positionPixels === null) {
           continue;
         }
+        const position = {
+          x: positionPixels.x / SIZE,
+          y: positionPixels.y / SIZE,
+        };
         const size = sizes[i];
         const flower = { color, position, size };
         GardenActions.addFlower(flower);
       }
     };
     createFlowers(GardenConstants.FLOWER_COLOR_WHITE, [
-      { x: 0.3, y: 0.7 }, { x: 0.1, y: 0.3 }, { x: 0.9, y: 0.8 }, { x: 0.6, y: 0.2 }, null,
+      { x: 568, y: 1036 }, { x: 184, y: 570 }, { x: 1304, y: 1134 }, { x: 852, y: 290 }, null,
     ]);
     createFlowers(GardenConstants.FLOWER_COLOR_RED, [
-      { x: 0.9, y: 0.6 }, { x: 0.5, y: 0.9 }, { x: 0.4, y: 0.4 }, null, { x: 0.1, y: 0.7 },
+      { x: 1290, y: 868 }, { x: 828, y: 1288 }, { x: 690, y: 590 }, null, { x: 222, y: 1044 },
     ]);
     createFlowers(GardenConstants.FLOWER_COLOR_YELLOW, [
-      { x: 0.6, y: 0.5 }, { x: 0.3, y: 0.1 }, { x: 0.3, y: 0.9 }, null, { x: 0.9, y: 0.3 },
+      { x: 868, y: 748 }, { x: 566, y: 202 }, { x: 516, y: 1330 }, null, { x: 1262, y: 430 },
     ]);
     createFlowers(GardenConstants.FLOWER_COLOR_PINK, [
-      { x: 0.3, y: 0.3 }, { x: 0.1, y: 0.9 }, { x: 0.8, y: 0.1 }, { x: 0.6, y: 0.7 }, null,
+      { x: 472, y: 452 }, { x: 214, y: 1326 }, { x: 1128, y: 172 }, { x: 822, y: 944 }, null,
     ]);
     createFlowers(GardenConstants.FLOWER_COLOR_PURPLE, [
-      null, { x: 0.4, y: 0.8 }, { x: 0.2, y: 0.6 }, { x: 0.1, y: 0.1 }, { x: 0.8, y: 0.9 },
+      null, { x: 1150, y: 656 }, { x: 384, y: 812 }, { x: 204, y: 196 }, { x: 1112, y: 1312 },
     ]);
     GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_BLUE });
     GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_GREEN });
@@ -80,12 +85,11 @@ class App extends React.Component {
       connections={this.state.connections}
       players={this.state.players}
     />);
-    const activePlayer = this.state.activePlayer;
-    console.log(activePlayer);
-    if (activePlayer) {
-      const color = activePlayer.get("color");
-      return <div className={color} id="app">{garden}</div>;
-    }
+    // const activePlayer = this.state.activePlayer;
+    // if (activePlayer) {
+    //   const color = activePlayer.get("color");
+    //   return <div className={color} id="app">{garden}</div>;
+    // }
     return <div id="app">{garden}</div>;
   }
 }
