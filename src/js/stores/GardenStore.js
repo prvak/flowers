@@ -3,6 +3,7 @@ import Immutable from "immutable";
 
 import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
+import Logic from "../Logic";
 
 const EventEmitter = events.EventEmitter;
 // Name of the event that is emmited on each store change.
@@ -50,19 +51,36 @@ class GardenStore extends EventEmitter {
   }
 
   addPlayer(player) {
-    this.players = this.players.push(Immutable.fromJS(player));
+    const p = {
+      color: player.color,
+      maxLength: player.maxLength,
+      remainingLength: player.maxLength,
+    };
+    this.players = this.players.push(Immutable.fromJS(p));
     this.connections = this.connections.push(new Immutable.List([]));
   }
 
   addConnection(flowerId) {
-    const flower = this.flowers.get(flowerId);
-    if (flower.get("takenBy") !== undefined) {
+    const takeAnalysis = Logic.canTakeFlower(this.activePlayerId, flowerId,
+        this.players, this.flowers, this.connections);
+    if (takeAnalysis === false) {
       return;
     }
+
+    // Update flowers.
+    const flower = this.flowers.get(flowerId);
     this.flowers = this.flowers.set(flowerId, flower.set("takenBy", this.activePlayerId));
+
+    // Update connections.
     const playerConnections = this.connections.get(this.activePlayerId);
     const newPlayerConnections = playerConnections.push(flowerId);
     this.connections = this.connections.set(this.activePlayerId, newPlayerConnections);
+
+    // Update player.
+    let player = this.players.get(this.activePlayerId);
+    const remainingLength = player.get("remainingLength") - takeAnalysis.distance;
+    player = player.set("remainingLength", remainingLength);
+    this.players = this.players.set(this.activePlayerId, player);
     this.activePlayerId = (this.activePlayerId + 1) % this.players.size;
   }
 }
