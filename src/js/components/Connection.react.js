@@ -25,6 +25,7 @@ class Connection extends React.Component {
       position: "absolute",
       transform: `rotate(${rotation}rad)`,
       transformOrigin: "left center",
+      zIndex: this.props.zIndex,
     };
     const classNames = `connection ${color}`;
     return (
@@ -37,6 +38,7 @@ Connection.propTypes = {
   player: React.PropTypes.object.isRequired,
   start: React.PropTypes.object.isRequired,
   end: React.PropTypes.object.isRequired,
+  zIndex: React.PropTypes.number.isRequired,
 };
 
 export default Connection;

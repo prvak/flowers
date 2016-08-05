@@ -20,17 +20,21 @@ class Garden extends React.Component {
     });
     connections.forEach((playerConnections, playerId) => {
       let lastFlowerId = null;
+      let connectionIndex = 0;
       const player = players.get(playerId);
       playerConnections.forEach((flowerId) => {
-        if (lastFlowerId === null) {
-          lastFlowerId = flowerId;
-        } else {
+        if (lastFlowerId !== null) {
+          console.log(flowers);
           const start = flowers.get(lastFlowerId).get("position");
           const end = flowers.get(flowerId).get("position");
           const key = `c-${playerId}-${lastFlowerId}-${flowerId}`;
-          elements.push(<Connection key={key} player={player} start={start} end={end} />);
-          lastFlowerId = flowerId;
+          const zIndex = (((connectionIndex) % 2) * 2) - 1;
+          elements.push(
+            <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />
+          );
         }
+        lastFlowerId = flowerId;
+        connectionIndex++;
       });
     });
     return <div className="garden">{elements}</div>;

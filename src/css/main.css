@@ -6,6 +6,7 @@
   bottom: 0px;
   right: 0px;
   left: 0px;
+  z-index: 0;
 }
 
 #app {
@@ -20,7 +21,7 @@
 .garden {
   position: absolute;
   box-sizing: border-box;
-  background-image: url(../graphics/garden.jpg);
+  background-image: url(../graphics/garden.png);
   background-size: cover;
   color: black;
   top: 0px;
