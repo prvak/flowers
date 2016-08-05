@@ -24,7 +24,6 @@ class Garden extends React.Component {
       const player = players.get(playerId);
       playerConnections.forEach((flowerId) => {
         if (lastFlowerId !== null) {
-          console.log(flowers);
           const start = flowers.get(lastFlowerId).get("position");
           const end = flowers.get(flowerId).get("position");
           const key = `c-${playerId}-${lastFlowerId}-${flowerId}`;

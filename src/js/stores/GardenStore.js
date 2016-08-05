@@ -55,6 +55,11 @@ class GardenStore extends EventEmitter {
   }
 
   addConnection(flowerId) {
+    const flower = this.flowers.get(flowerId);
+    if (flower.get("takenBy") !== undefined) {
+      return;
+    }
+    this.flowers = this.flowers.set(flowerId, flower.set("takenBy", this.activePlayerId));
     const playerConnections = this.connections.get(this.activePlayerId);
     const newPlayerConnections = playerConnections.push(flowerId);
     this.connections = this.connections.set(this.activePlayerId, newPlayerConnections);
