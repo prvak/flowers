@@ -9,8 +9,8 @@ const GardenConstants = {
   FLOWER_SIZE_6: 2.5,
   FLOWER_SIZE_7: 3,
   FLOWER_SIZE_8: 3.5,
-  PLAYER_COLOR_BLUE: "blue",
-  PLAYER_COLOR_GREEN: "green",
+  PLAYER_COLOR_RED: "red",
+  PLAYER_COLOR_PURPLE: "purple",
 };
 
 export default GardenConstants;

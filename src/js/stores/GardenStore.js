@@ -46,6 +46,10 @@ class GardenStore extends EventEmitter {
     return this.players.get(this.activePlayerId);
   }
 
+  getActivePlayerId() {
+    return this.activePlayerId;
+  }
+
   addFlower(flower) {
     this.flowers = this.flowers.push(Immutable.fromJS(flower));
   }

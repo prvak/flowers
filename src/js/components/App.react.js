@@ -11,7 +11,7 @@ function getAppState() {
     flowers: gardenStore.getFlowers(),
     connections: gardenStore.getConnections(),
     players: gardenStore.getPlayers(),
-    activePlayer: gardenStore.getActivePlayer(),
+    activePlayerId: gardenStore.getActivePlayerId(),
     windowSize: HtmlUtils.getWindowSize(),
   };
 }
@@ -64,13 +64,8 @@ class App extends React.Component {
     createFlowers(GardenConstants.FLOWER_COLOR_PURPLE, [
       null, { x: 1150, y: 656 }, { x: 384, y: 812 }, { x: 204, y: 196 }, { x: 1112, y: 1312 },
     ]);
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_BLUE, maxLength: 2.0 });
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_GREEN, maxLength: 2.0 });
-    GardenActions.addConnection(10);
-    GardenActions.addConnection(15);
-    GardenActions.addConnection(7);
-    GardenActions.addConnection(1);
-    GardenActions.addConnection(13);
+    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_RED, maxLength: 2.5 });
+    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_PURPLE, maxLength: 2.5 });
   }
 
   componentDidMount() {
@@ -89,6 +84,7 @@ class App extends React.Component {
       flowers={this.state.flowers}
       connections={this.state.connections}
       players={this.state.players}
+      activePlayerId={this.state.activePlayerId}
     />);
     // const activePlayer = this.state.activePlayer;
     // if (activePlayer) {

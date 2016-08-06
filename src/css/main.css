@@ -43,35 +43,30 @@
 }
 
 .connection {
+  position: absolute;
   background-position: center left;
   background-size: auto 100%;
   border-radius: 1em / 50%;
 }
 
-.white {
-  background-color: white;
+.highlight {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.4;
 }
 
-.red {
-  background-color: red;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.purple {
+.highlight.purple {
   background-color: purple;
 }
 
-.pink {
-  background-color: pink;
+.highlight.red {
+  background-color: red;
 }
 
-.green {
+.connection.purple {
   background-image: url(../graphics/player-purple.png);
 }
 
-.blue {
+.connection.red {
   background-image: url(../graphics/player-red.png);
 }
