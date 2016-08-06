@@ -5,6 +5,7 @@ import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
 import Logic from "../Logic";
 import Calculator from "../Calculator";
+import Random from "../Random";
 
 const EventEmitter = events.EventEmitter;
 // Name of the event that is emmited on each store change.
@@ -13,6 +14,7 @@ const CHANGE_EVENT = "change";
 class GardenStore extends EventEmitter {
   constructor() {
     super();
+    this.random = new Random();
     this.flowers = new Immutable.List([]);
     this.connections = new Immutable.List([]);
     this.players = new Immutable.List([]);
@@ -84,7 +86,11 @@ class GardenStore extends EventEmitter {
     // Update player.
     let player = this.players.get(this.activePlayerId);
     const remainingLength = player.get("remainingLength") - takeAnalysis.distance;
+    const newPosition = { x: this.random.double(), y: this.random.double() };
+    const flowerPosition = flower.get("position").toJS();
+    const positionNearFlower = Calculator.getPositionAtDistance(flowerPosition, newPosition, 0.1);
     player = player.set("remainingLength", remainingLength);
+    player = player.set("position", Immutable.fromJS(positionNearFlower));
     this.players = this.players.set(this.activePlayerId, player);
     this.activePlayerId = (this.activePlayerId + 1) % this.players.size;
   }
