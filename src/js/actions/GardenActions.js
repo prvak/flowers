@@ -20,6 +20,13 @@ const SpaceActions = {
       flowerId,
     });
   },
+  setHalfConnection: (playerId, position) => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_SET_HALF_CONNECTION,
+      playerId,
+      position,
+    });
+  },
 };
 
 export default SpaceActions;

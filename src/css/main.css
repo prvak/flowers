@@ -47,6 +47,15 @@
   background-position: center left;
   background-size: auto 100%;
   border-radius: 1em / 50%;
+  pointer-events: none;
+}
+
+.connection.purple {
+  background-image: url(../graphics/player-purple.png);
+}
+
+.connection.red {
+  background-image: url(../graphics/player-red.png);
 }
 
 .highlight {
@@ -61,12 +70,4 @@
 
 .highlight.red {
   background-color: red;
-}
-
-.connection.purple {
-  background-image: url(../graphics/player-purple.png);
-}
-
-.connection.red {
-  background-image: url(../graphics/player-red.png);
 }

@@ -4,6 +4,7 @@ import Immutable from "immutable";
 import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
 import Logic from "../Logic";
+import Calculator from "../Calculator";
 
 const EventEmitter = events.EventEmitter;
 // Name of the event that is emmited on each store change.
@@ -87,6 +88,25 @@ class GardenStore extends EventEmitter {
     this.players = this.players.set(this.activePlayerId, player);
     this.activePlayerId = (this.activePlayerId + 1) % this.players.size;
   }
+
+  setHalfConnection(playerId, position) {
+    let player = this.players.get(playerId);
+    const playerConnections = this.connections.get(playerId);
+    if (playerConnections.size <= 0) {
+      return;
+    }
+    const lastFlowerId = playerConnections.last();
+    const lastFlower = this.flowers.get(lastFlowerId);
+    const lastFlowerPosition = lastFlower.get("position").toJS();
+    const remaining = player.get("remainingLength");
+    const distance = Calculator.getDistanceBetweenPositions(lastFlowerPosition, position);
+    let finalPosition = position;
+    if (distance > remaining) {
+      finalPosition = Calculator.getPositionAtDistance(lastFlowerPosition, position, remaining);
+    }
+    player = player.set("position", Immutable.fromJS(finalPosition));
+    this.players = this.players.set(playerId, player);
+  }
 }
 
 const store = new GardenStore();
@@ -104,6 +124,10 @@ AppDispatcher.register((action) => {
       break;
     case ActionConstants.GARDEN_ADD_CONNECTION:
       store.addConnection(action.flowerId);
+      store.emitChange();
+      break;
+    case ActionConstants.GARDEN_SET_HALF_CONNECTION:
+      store.setHalfConnection(action.playerId, action.position);
       store.emitChange();
       break;
     default:

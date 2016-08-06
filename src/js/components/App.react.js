@@ -6,25 +6,16 @@ import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
 import HtmlUtils from "../HtmlUtils";
 
-function getAppState() {
-  return {
-    flowers: gardenStore.getFlowers(),
-    connections: gardenStore.getConnections(),
-    players: gardenStore.getPlayers(),
-    activePlayerId: gardenStore.getActivePlayerId(),
-    windowSize: HtmlUtils.getWindowSize(),
-  };
-}
-
 class App extends React.Component {
   constructor() {
     super();
-    this.state = getAppState();
+    this._lastMousePosition = { x: 0, y: 0 };
+    this.state = this._getAppState();
     this._onChange = () => {
-      this.setState(getAppState());
+      this.setState(this._getAppState());
     };
     this._onResize = () => {
-      this.setState(getAppState());
+      this.setState(this._getAppState());
     };
     const createFlowers = (color, positions) => {
       const SIZE = 1494;
@@ -64,8 +55,10 @@ class App extends React.Component {
     createFlowers(GardenConstants.FLOWER_COLOR_PURPLE, [
       null, { x: 1150, y: 656 }, { x: 384, y: 812 }, { x: 204, y: 196 }, { x: 1112, y: 1312 },
     ]);
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_RED, maxLength: 2.5 });
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_PURPLE, maxLength: 2.5 });
+    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_RED, maxLength: 1 });
+    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_PURPLE, maxLength: 1 });
+    GardenActions.addConnection(1);
+    GardenActions.addConnection(2);
   }
 
   componentDidMount() {
@@ -77,6 +70,17 @@ class App extends React.Component {
   componentWillUnmount() {
     gardenStore.removeChangeListener(this._onChange);
     window.removeEventListener("resize", this._onResize);
+  }
+
+  _getAppState() {
+    return {
+      flowers: gardenStore.getFlowers(),
+      connections: gardenStore.getConnections(),
+      players: gardenStore.getPlayers(),
+      activePlayerId: gardenStore.getActivePlayerId(),
+      windowSize: HtmlUtils.getWindowSize(),
+      mousePosition: this._lastMousePosition,
+    };
   }
 
   render() {
