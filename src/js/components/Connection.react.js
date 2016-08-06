@@ -1,4 +1,5 @@
 import React from "react";
+import Calculator from "../Calculator";
 
 class Connection extends React.Component {
   constructor() {
@@ -7,11 +8,13 @@ class Connection extends React.Component {
 
   render() {
     const player = this.props.player.toJS();
-    const start = this.props.start.toJS();
-    const end = this.props.end.toJS();
+    let start = this.props.start.toJS();
+    let end = this.props.end.toJS();
+    const height = 0.03;
+    start = Calculator.getPositionAtDistance(start, end, -height / 3);
+    end = Calculator.getPositionAtDistance(end, start, -height / 3);
     const ux = end.x - start.x;
     const uy = end.y - start.y;
-    const height = 0.03;
     const width = Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2));
     const x = start.x;
     const y = start.y - height / 2;
