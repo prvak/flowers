@@ -19,6 +19,8 @@ class GardenStore extends EventEmitter {
     this.connections = new Immutable.List([]);
     this.players = new Immutable.List([]);
     this.activePlayerId = 0;
+    this.isGameStarted = false;
+    this.isGameOver = false;
   }
 
   emitChange() {
@@ -31,6 +33,14 @@ class GardenStore extends EventEmitter {
 
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  }
+
+  isGameStarted() {
+    return this.isGameStarted;
+  }
+
+  isGameOver() {
+    return this.isGameOver;
   }
 
   getFlowers() {
@@ -92,7 +102,20 @@ class GardenStore extends EventEmitter {
     player = player.set("remainingLength", remainingLength);
     player = player.set("position", Immutable.fromJS(positionNearFlower));
     this.players = this.players.set(this.activePlayerId, player);
-    this.activePlayerId = (this.activePlayerId + 1) % this.players.size;
+
+    // Choose next player.
+    let nextPlayerId = this.activePlayerId;
+    while (!this.isGameOver) {
+      nextPlayerId = (nextPlayerId + 1) % this.players.size;
+      if (Logic.canPlay(nextPlayerId, this.players, this.flowers, this.connections)) {
+        this.activePlayerId = nextPlayerId;
+        break;
+      }
+      if (nextPlayerId === this.activePlayerId) {
+        this.isGameOver = true;
+        break;
+      }
+    }
   }
 
   setHalfConnection(playerId, position) {

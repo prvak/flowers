@@ -21,6 +21,12 @@ const Logic = {
     }
     return { distance };
   },
+
+  canPlay: (playerId, players, flowers, connections) => {
+    return flowers.some((flower, flowerId) => {
+      return Logic.canTakeFlower(playerId, flowerId, players, flowers, connections);
+    });
+  },
 };
 
 export default Logic;
