@@ -71,7 +71,7 @@ class GardenStore extends EventEmitter {
     this._connections = new Immutable.List([]);
     this._players = new Immutable.List([]);
 
-    const maxLength = 1;
+    const maxLength = 2.5;
     playerColors.forEach((color) => {
       this.addPlayer({ color, maxLength });
     });
