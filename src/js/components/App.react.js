@@ -19,7 +19,7 @@ class App extends React.Component {
       this.setState(this._getAppState());
     };
     const createFlowers = (color, positions) => {
-      const SIZE = 1494;
+      const SIZE = 1494; // The size of the background image.
       const sizes = [4, 5, 6, 7, 8];
       for (let i = 0; i < positions.length; i++) {
         const positionPixels = positions[i];

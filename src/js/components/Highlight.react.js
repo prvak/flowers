@@ -16,6 +16,7 @@ export default class Highlight extends React.Component {
       height: `${size * 100}%`,
       marginTop: `${(-size / 2) * 100}%`,
       marginLeft: `${(-size / 2) * 100}%`,
+      background: "none",
     };
     const classNames = `highlight ${color}`;
     return (
