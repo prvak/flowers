@@ -91,9 +91,10 @@
 
 .button {
   border: solid 1px black;
-  margin: 0em 1em 1em 1em;
+  margin: 0em 1rem 1rem 1rem;
 }
 
 .score-line {
-  margin: 0em 1em 1em 1em;
+  margin: 0em 1rem 1rem 1rem;
+  font-size: 1.5rem;
 }

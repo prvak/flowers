@@ -6,19 +6,19 @@ export default class ScoreBox extends React.Component {
   }
 
   render() {
-    const elements = [];
     let maxScore = 1; // To prevent division by zero.
     this.props.players.forEach((player) => {
       const score = player.get("score");
       maxScore = Math.max(score, maxScore);
     });
+    const elements = [];
     this.props.players.forEach((player, playerId) => {
       const score = player.get("score");
       const color = player.get("color");
       const classNames = `connection ${color}`;
       const style = {
         width: `${(score / maxScore) * 100}%`,
-        height: "1.5em",
+        height: "1.5rem",
       };
       elements.push(
         <div key={playerId} className="score-line">

@@ -1,12 +1,14 @@
 import React from "react";
+
 import GardenActions from "../actions/GardenActions";
+import GardenConstants from "../constants/GardenConstants";
 
 class Flower extends React.Component {
   constructor() {
     super();
-    this.onClick = (event) => {
+    this.onClick = () => {
       GardenActions.addConnection(this.props.flowerId);
-    }
+    };
   }
 
   render() {
@@ -14,16 +16,16 @@ class Flower extends React.Component {
     const position = flower.position;
     const x = position.x;
     const y = position.y;
-    const size = 5;
+    const size = GardenConstants.FLOWER_CLICK_AREA;
     const color = flower.color;
     const rotation = 0;
     const style = {
       left: `${x * 100}%`,
       top: `${y * 100}%`,
-      width: `${size}rem`,
-      height: `${size}rem`,
-      marginTop: `${-size / 2}rem`,
-      marginLeft: `${-size / 2}rem`,
+      width: `${size * 100}%`,
+      height: `${size * 100}%`,
+      marginTop: `${(-size / 2) * 100}%`,
+      marginLeft: `${(-size / 2) * 100}%`,
       transform: `rotate(${rotation}deg)`,
       background: "none",
     };
