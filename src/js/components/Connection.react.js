@@ -13,11 +13,11 @@ class Connection extends React.Component {
     const height = 0.03;
     start = Calculator.getPositionAtDistance(start, end, -height / 3);
     end = Calculator.getPositionAtDistance(end, start, -height / 3);
-    const ux = end.x - start.x;
-    const uy = end.y - start.y;
+    const ux = start.x - end.x;
+    const uy = start.y - end.y;
     const width = Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2));
-    const x = start.x;
-    const y = start.y - height / 2;
+    const x = end.x;
+    const y = end.y - height / 2;
     const rotation = -Math.atan2(ux, uy) + Math.PI / 2;
     const color = player.color;
     const style = {
