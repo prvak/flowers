@@ -19,7 +19,7 @@ class GardenStore extends EventEmitter {
     this.connections = new Immutable.List([]);
     this.players = new Immutable.List([]);
     this.activePlayerId = 0;
-    this.isGameStarted = false;
+    this.isGameStarted = true;
     this.isGameOver = false;
   }
 
@@ -119,6 +119,9 @@ class GardenStore extends EventEmitter {
   }
 
   setHalfConnection(playerId, position) {
+    if (this.isGameOver || !this.isGameStarted) {
+      return;
+    }
     let player = this.players.get(playerId);
     const playerConnections = this.connections.get(playerId);
     if (playerConnections.size <= 0) {
