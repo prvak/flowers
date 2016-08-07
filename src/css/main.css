@@ -43,7 +43,6 @@
 }
 
 .connection {
-  position: absolute;
   background-position: center left;
   background-size: auto 100%;
   border-radius: 1em / 50%;
@@ -70,4 +69,27 @@
 
 .highlight.red {
   background-color: red;
+}
+
+.message-box {
+  text-align: center;
+  border: solid 1px black;
+  width: 20em;
+  background-color: white;
+  position: absolute;
+  margin: auto;
+  top: 30%;
+  left: 0px;
+  right: 0px;
+  z-index: 255;
+}
+
+.start-game {
+  height: 6em;
+  margin: auto;
+}
+
+.button {
+  border: solid 1px black;
+  margin: 0em 1em 1em 1em;
 }

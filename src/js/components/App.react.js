@@ -2,6 +2,7 @@ import React from "react";
 
 import gardenStore from "../stores/GardenStore";
 import Garden from "../components/Garden.react";
+import MessageBox from "../components/MessageBox.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
 import HtmlUtils from "../HtmlUtils";
@@ -55,10 +56,6 @@ class App extends React.Component {
     createFlowers(GardenConstants.FLOWER_COLOR_PURPLE, [
       null, { x: 1150, y: 656 }, { x: 384, y: 812 }, { x: 204, y: 196 }, { x: 1112, y: 1312 },
     ]);
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_RED, maxLength: 1 });
-    GardenActions.addPlayer({ color: GardenConstants.PLAYER_COLOR_PURPLE, maxLength: 1 });
-    GardenActions.addConnection(1);
-    GardenActions.addConnection(2);
   }
 
   componentDidMount() {
@@ -78,6 +75,8 @@ class App extends React.Component {
       connections: gardenStore.getConnections(),
       players: gardenStore.getPlayers(),
       activePlayerId: gardenStore.getActivePlayerId(),
+      isGameStarted: gardenStore.isGameStarted(),
+      isGameOver: gardenStore.isGameOver(),
       windowSize: HtmlUtils.getWindowSize(),
       mousePosition: this._lastMousePosition,
     };
@@ -95,6 +94,14 @@ class App extends React.Component {
     //   const color = activePlayer.get("color");
     //   return <div className={color} id="app">{garden}</div>;
     // }
+    if (this.state.isGameOver || !this.state.isGameStarted) {
+      const messageBox = (<MessageBox
+        players={this.state.players}
+        isGameStarted={this.state.isGameStarted}
+        isGameOver={this.state.isGameOver}
+      />);
+      return <div id="app">{garden} {messageBox}</div>;
+    }
     return <div id="app">{garden}</div>;
   }
 }

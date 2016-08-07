@@ -14,13 +14,13 @@ const CHANGE_EVENT = "change";
 class GardenStore extends EventEmitter {
   constructor() {
     super();
-    this.random = new Random();
-    this.flowers = new Immutable.List([]);
-    this.connections = new Immutable.List([]);
-    this.players = new Immutable.List([]);
-    this.activePlayerId = 0;
-    this.isGameStarted = true;
-    this.isGameOver = false;
+    this._random = new Random();
+    this._flowers = new Immutable.List([]);
+    this._connections = new Immutable.List([]);
+    this._players = new Immutable.List([]);
+    this._activePlayerId = 0;
+    this._isGameStarted = false;
+    this._isGameOver = false;
   }
 
   emitChange() {
@@ -36,35 +36,48 @@ class GardenStore extends EventEmitter {
   }
 
   isGameStarted() {
-    return this.isGameStarted;
+    return this._isGameStarted;
   }
 
   isGameOver() {
-    return this.isGameOver;
+    return this._isGameOver;
   }
 
   getFlowers() {
-    return this.flowers;
+    return this._flowers;
   }
 
   getConnections() {
-    return this.connections;
+    return this._connections;
   }
 
   getPlayers() {
-    return this.players;
+    return this._players;
   }
 
   getActivePlayer() {
-    return this.players.get(this.activePlayerId);
+    return this._players.get(this._activePlayerId);
   }
 
   getActivePlayerId() {
-    return this.activePlayerId;
+    return this._activePlayerId;
   }
 
   addFlower(flower) {
-    this.flowers = this.flowers.push(Immutable.fromJS(flower));
+    this._flowers = this._flowers.push(Immutable.fromJS(flower));
+  }
+
+  startGame(playerColors) {
+    this._connections = new Immutable.List([]);
+    this._players = new Immutable.List([]);
+
+    const maxLength = 1;
+    playerColors.forEach((color) => {
+      this.addPlayer({ color, maxLength });
+    });
+    this._isGameStarted = true;
+    this._isGameOver = false;
+    this._activePlayerId = 0;
   }
 
   addPlayer(player) {
@@ -73,62 +86,59 @@ class GardenStore extends EventEmitter {
       maxLength: player.maxLength,
       remainingLength: player.maxLength,
     };
-    this.players = this.players.push(Immutable.fromJS(p));
-    this.connections = this.connections.push(new Immutable.List([]));
+    this._players = this._players.push(Immutable.fromJS(p));
+    this._connections = this._connections.push(new Immutable.List([]));
   }
 
   addConnection(flowerId) {
-    const takeAnalysis = Logic.canTakeFlower(this.activePlayerId, flowerId,
-        this.players, this.flowers, this.connections);
+    const takeAnalysis = Logic.canTakeFlower(this._activePlayerId, flowerId,
+        this._players, this._flowers, this._connections);
     if (takeAnalysis === false) {
       return;
     }
 
-    // Update flowers.
-    const flower = this.flowers.get(flowerId);
-    this.flowers = this.flowers.set(flowerId, flower.set("takenBy", this.activePlayerId));
-
     // Update connections.
-    const playerConnections = this.connections.get(this.activePlayerId);
+    const playerConnections = this._connections.get(this._activePlayerId);
     const newPlayerConnections = playerConnections.push(flowerId);
-    this.connections = this.connections.set(this.activePlayerId, newPlayerConnections);
+    this._connections = this._connections.set(this._activePlayerId, newPlayerConnections);
 
     // Update player.
-    let player = this.players.get(this.activePlayerId);
+    let player = this._players.get(this._activePlayerId);
     const remainingLength = player.get("remainingLength") - takeAnalysis.distance;
-    const newPosition = { x: this.random.double(), y: this.random.double() };
+    const newPosition = { x: this._random.double(), y: this._random.double() };
+    const flower = this._flowers.get(flowerId);
     const flowerPosition = flower.get("position").toJS();
     const positionNearFlower = Calculator.getPositionAtDistance(flowerPosition, newPosition, 0.1);
     player = player.set("remainingLength", remainingLength);
     player = player.set("position", Immutable.fromJS(positionNearFlower));
-    this.players = this.players.set(this.activePlayerId, player);
+    this._players = this._players.set(this._activePlayerId, player);
 
     // Choose next player.
-    let nextPlayerId = this.activePlayerId;
-    while (!this.isGameOver) {
-      nextPlayerId = (nextPlayerId + 1) % this.players.size;
-      if (Logic.canPlay(nextPlayerId, this.players, this.flowers, this.connections)) {
-        this.activePlayerId = nextPlayerId;
+    let nextPlayerId = this._activePlayerId;
+    while (!this._isGameOver) {
+      nextPlayerId = (nextPlayerId + 1) % this._players.size;
+      if (Logic.canPlay(nextPlayerId, this._players, this._flowers, this._connections)) {
+        this._activePlayerId = nextPlayerId;
         break;
       }
-      if (nextPlayerId === this.activePlayerId) {
-        this.isGameOver = true;
+      if (nextPlayerId === this._activePlayerId) {
+        this._isGameOver = true;
         break;
       }
     }
   }
 
   setHalfConnection(playerId, position) {
-    if (this.isGameOver || !this.isGameStarted) {
+    if (this._isGameOver || !this._isGameStarted) {
       return;
     }
-    let player = this.players.get(playerId);
-    const playerConnections = this.connections.get(playerId);
+    let player = this._players.get(playerId);
+    const playerConnections = this._connections.get(playerId);
     if (playerConnections.size <= 0) {
       return;
     }
     const lastFlowerId = playerConnections.last();
-    const lastFlower = this.flowers.get(lastFlowerId);
+    const lastFlower = this._flowers.get(lastFlowerId);
     const lastFlowerPosition = lastFlower.get("position").toJS();
     const remaining = player.get("remainingLength");
     const distance = Calculator.getDistanceBetweenPositions(lastFlowerPosition, position);
@@ -137,7 +147,7 @@ class GardenStore extends EventEmitter {
       finalPosition = Calculator.getPositionAtDistance(lastFlowerPosition, position, remaining);
     }
     player = player.set("position", Immutable.fromJS(finalPosition));
-    this.players = this.players.set(playerId, player);
+    this._players = this._players.set(playerId, player);
   }
 }
 
@@ -146,6 +156,10 @@ const store = new GardenStore();
 // Register callback to handle all updates
 AppDispatcher.register((action) => {
   switch (action.actionType) {
+    case ActionConstants.GARDEN_START_GAME:
+      store.startGame(action.playerColors);
+      store.emitChange();
+      break;
     case ActionConstants.GARDEN_ADD_FLOWER:
       store.addFlower(action.flower);
       store.emitChange();

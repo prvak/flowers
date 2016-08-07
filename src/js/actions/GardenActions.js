@@ -2,6 +2,12 @@ import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
 
 const SpaceActions = {
+  startGame: (playerColors) => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_START_GAME,
+      playerColors,
+    });
+  },
   addFlower: (flower) => {
     AppDispatcher.dispatch({
       actionType: ActionConstants.GARDEN_ADD_FLOWER,
