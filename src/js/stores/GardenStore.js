@@ -105,10 +105,12 @@ class GardenStore extends EventEmitter {
     // Update player.
     let player = this._players.get(this._activePlayerId);
     const remainingLength = player.get("remainingLength") - takeAnalysis.distance;
-    const newPosition = { x: this._random.double(), y: this._random.double() };
+    const randomPosition = { x: this._random.double(), y: this._random.double() };
     const flower = this._flowers.get(flowerId);
     const flowerPosition = flower.get("position").toJS();
-    const positionNearFlower = Calculator.getPositionAtDistance(flowerPosition, newPosition, 0.1);
+    const distanceFromFlower = Math.min(0.1, remainingLength + 0.01);
+    const positionNearFlower = Calculator.getPositionAtDistance(flowerPosition, randomPosition,
+      distanceFromFlower);
     player = player.set("remainingLength", remainingLength);
     player = player.set("position", Immutable.fromJS(positionNearFlower));
     this._players = this._players.set(this._activePlayerId, player);
