@@ -20,13 +20,7 @@ class App extends React.Component {
     };
     const createFlowers = (color, positions) => {
       const SIZE = 1494;
-      const sizes = [
-        GardenConstants.FLOWER_SIZE_4,
-        GardenConstants.FLOWER_SIZE_5,
-        GardenConstants.FLOWER_SIZE_6,
-        GardenConstants.FLOWER_SIZE_7,
-        GardenConstants.FLOWER_SIZE_8,
-      ];
+      const sizes = [4, 5, 6, 7, 8];
       for (let i = 0; i < positions.length; i++) {
         const positionPixels = positions[i];
         if (positionPixels === null) {

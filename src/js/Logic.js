@@ -40,6 +40,25 @@ const Logic = {
       return Logic.canTakeFlower(playerId, flowerId, players, flowers, connections);
     });
   },
+
+  countScore: (playerId, players, flowers, connections) => {
+    let score = 0;
+    const playerConnections = connections.get(playerId);
+    let lastFlowerId = null;
+    playerConnections.forEach((flowerId, connectionIndex) => {
+      const flower = flowers.get(flowerId);
+      score += flower.get("size");
+      if (lastFlowerId !== null && connectionIndex % 2 !== 0) {
+        const lastFlower = flowers.get(lastFlowerId);
+        if (lastFlower.get("color") === flower.get("color")) {
+          // Bonus if two flowers of the same color are connected visibly.
+          score += 2;
+        }
+      }
+      lastFlowerId = flowerId;
+    });
+    return score;
+  },
 };
 
 export default Logic;

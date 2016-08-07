@@ -1,6 +1,7 @@
 import React from "react";
 
-import StartGameButton from "../components/StartGameButton.react";
+import ScoreBox from "../components/ScoreBox.react";
+import StartGameBox from "../components/StartGameBox.react";
 import GardenConstants from "../constants/GardenConstants";
 
 export default class MessageBox extends React.Component {
@@ -9,22 +10,14 @@ export default class MessageBox extends React.Component {
   }
 
   render() {
-    const onePlayerColor = [
-      GardenConstants.PLAYER_COLOR_RED,
-    ];
-    const onePlayer = (<StartGameButton playerColors={onePlayerColor} />);
-    const twoPlayersColors = [
-      GardenConstants.PLAYER_COLOR_RED,
-      GardenConstants.PLAYER_COLOR_PURPLE,
-    ];
-    const twoPlayers = (<StartGameButton playerColors={twoPlayersColors} />);
+    const elements = [];
+    if (this.props.isGameOver) {
+      elements.push(<ScoreBox key="score" players={this.props.players} />);
+    }
+    elements.push(<StartGameBox key="new-game" />);
     return (
       <div className="message-box">
-        <div>
-          <h2>New game</h2>
-          {onePlayer}
-          {twoPlayers}
-        </div>
+        {elements}
       </div>
     );
   }

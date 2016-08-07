@@ -113,6 +113,9 @@ class GardenStore extends EventEmitter {
     player = player.set("position", Immutable.fromJS(positionNearFlower));
     this._players = this._players.set(this._activePlayerId, player);
 
+    // Update score.
+    this._updateScore();
+
     // Choose next player.
     let nextPlayerId = this._activePlayerId;
     while (!this._isGameOver) {
@@ -148,6 +151,13 @@ class GardenStore extends EventEmitter {
     }
     player = player.set("position", Immutable.fromJS(finalPosition));
     this._players = this._players.set(playerId, player);
+  }
+
+  _updateScore() {
+    this._players.forEach((player, playerId) => {
+      const score = Logic.countScore(playerId, this._players, this._flowers, this._connections);
+      this._players = this._players.set(playerId, player.set("score", score));
+    });
   }
 }
 
