@@ -10,13 +10,17 @@ export default class MessageBox extends React.Component {
   }
 
   render() {
+    const style = {};
+    if (!this.props.isGameOver && this.props.isGameStarted) {
+      style.visibility = "hidden";
+    }
     const elements = [];
     if (this.props.isGameOver) {
       elements.push(<ScoreBox key="score" players={this.props.players} />);
     }
     elements.push(<StartGameBox key="new-game" />);
     return (
-      <div className="message-box">
+      <div style={style} className="message-box">
         {elements}
       </div>
     );

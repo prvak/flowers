@@ -85,6 +85,7 @@ class GardenStore extends EventEmitter {
       color: player.color,
       maxLength: player.maxLength,
       remainingLength: player.maxLength,
+      score: 0,
     };
     this._players = this._players.push(Immutable.fromJS(p));
     this._connections = this._connections.push(new Immutable.List([]));

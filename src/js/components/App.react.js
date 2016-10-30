@@ -3,6 +3,7 @@ import React from "react";
 import gardenStore from "../stores/GardenStore";
 import Garden from "../components/Garden.react";
 import MessageBox from "../components/MessageBox.react";
+import ScoreToolBox from "../components/ScoreToolBox.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
 import HtmlUtils from "../HtmlUtils";
@@ -83,20 +84,22 @@ class App extends React.Component {
       players={this.state.players}
       activePlayerId={this.state.activePlayerId}
     />);
+    const messageBox = (<MessageBox
+      players={this.state.players}
+      isGameStarted={this.state.isGameStarted}
+      isGameOver={this.state.isGameOver}
+    />);
+    // Layer below the garden but above tool boxes. Without this layer
+    // the toolbox would be visible below the garden since the garden has
+    // partial transparency.
+    const underground = (<div className="underground"></div>);
+    const scoreToolBox = (<ScoreToolBox players={this.state.players} />);
     // const activePlayer = this.state.activePlayer;
     // if (activePlayer) {
     //   const color = activePlayer.get("color");
     //   return <div className={color} id="app">{garden}</div>;
     // }
-    if (this.state.isGameOver || !this.state.isGameStarted) {
-      const messageBox = (<MessageBox
-        players={this.state.players}
-        isGameStarted={this.state.isGameStarted}
-        isGameOver={this.state.isGameOver}
-      />);
-      return <div id="app">{garden} {messageBox}</div>;
-    }
-    return <div id="app">{garden}</div>;
+    return <div id="app">{garden} {messageBox} {underground} {scoreToolBox}</div>;
   }
 }
 

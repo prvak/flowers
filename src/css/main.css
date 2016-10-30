@@ -16,6 +16,10 @@
   left: 0px;
   bottom: 0px;
   margin: auto;
+  height: 60vm; /* IE9 fallback */
+  width: 100vm; /* IE9 fallback */
+  width: 100vmin;
+  height: 60vmin;
 }
 
 .garden {
@@ -29,12 +33,28 @@
   left: 0px;
   right: 0px;
   margin: auto;
-  overflow: hidden;
-  height: 100vm; /* IE9 fallback */
-  width: 100vm; /* IE9 fallback */
-  width: 100vmin;
-  height: 100vmin;
+  height: 60vm; /* IE9 fallback */
+  width: 60vm; /* IE9 fallback */
+  width: 60vmin;
+  height: 60vmin;
   position: absolute;
+}
+
+.underground {
+  position: absolute;
+  background-color: white;
+  box-sizing: border-box;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  height: 60vm; /* IE9 fallback */
+  width: 60vm; /* IE9 fallback */
+  width: 60vmin;
+  height: 60vmin;
+  position: absolute;
+  z-index: -1000;
 }
 
 .flower {
@@ -82,6 +102,43 @@
   left: 0px;
   right: 0px;
   z-index: 255;
+}
+
+.tool-box {
+  width: 20%;
+  position: absolute;
+  z-index: -1001;
+}
+
+.tool-box--score {
+  bottom: 0px;
+  left: 0px;
+}
+
+.tool-card {
+  border: solid 1px black;
+  background-color: white;
+}
+
+.tool-card--score {
+  width: 30%;
+  margin-left: 75%;
+  text-align: center;
+}
+.tool-card--score-enter {
+  margin-left: 100%;
+}
+.tool-card--score-enter.tool-card--score-enter-active {
+  margin-left: 75%;
+  transition: margin-left 500ms ease-in;
+}
+.tool-card--score-leave {
+  margin-left: 75%;
+}
+
+.tool-card--score-leave.tool-card--score-leave-active {
+  margin-left: 100%;
+  transition: margin-left 300ms ease-in;
 }
 
 .start-game {
