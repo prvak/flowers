@@ -3,6 +3,7 @@ import React from "react";
 import gardenStore from "../stores/GardenStore";
 import Garden from "../components/Garden.react";
 import MessageBox from "../components/MessageBox.react";
+import MenuToolBox from "../components/MenuToolBox.react";
 import ScoreToolBox from "../components/ScoreToolBox.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
@@ -94,12 +95,13 @@ class App extends React.Component {
     // partial transparency.
     const underground = (<div className="underground"></div>);
     const scoreToolBox = (<ScoreToolBox players={this.state.players} />);
+    const menuToolBox = (<MenuToolBox />);
     // const activePlayer = this.state.activePlayer;
     // if (activePlayer) {
     //   const color = activePlayer.get("color");
     //   return <div className={color} id="app">{garden}</div>;
     // }
-    return <div id="app">{garden} {messageBox} {underground} {scoreToolBox}</div>;
+    return <div id="app">{garden} {messageBox} {underground} {menuToolBox} {scoreToolBox}</div>;
   }
 }
 

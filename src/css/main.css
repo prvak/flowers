@@ -107,7 +107,30 @@
 .tool-box {
   width: 20%;
   position: absolute;
+  padding-top: 1em;
+  padding-bottom: 1em;
   z-index: -1001;
+}
+
+.tool-box--menu {
+  top: 0px;
+  left: 0px;
+}
+
+.tool-card--menu {
+  display: table;
+  width: 100%;
+  margin-left: 5%;
+  text-align: center;
+}
+
+.menu--logo {
+  transform: rotate(-90deg);
+  display: table-column;
+}
+
+.menu--content {
+  display: table-column;
 }
 
 .tool-box--score {
