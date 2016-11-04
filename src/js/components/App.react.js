@@ -95,7 +95,10 @@ class App extends React.Component {
     // partial transparency.
     const underground = (<div className="underground"></div>);
     const scoreToolBox = (<ScoreToolBox players={this.state.players} />);
-    const menuToolBox = (<MenuToolBox />);
+    const menuToolBox = (<MenuToolBox
+      isGameStarted={this.state.isGameStarted}
+      isGameOver={this.state.isGameOver}
+    />);
     // const activePlayer = this.state.activePlayer;
     // if (activePlayer) {
     //   const color = activePlayer.get("color");

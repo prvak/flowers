@@ -55,6 +55,7 @@
   height: 60vmin;
   position: absolute;
   z-index: -1000;
+  visibility: hidden;
 }
 
 .flower {
@@ -107,61 +108,79 @@
 .tool-box {
   width: 20%;
   position: absolute;
-  padding-top: 1em;
-  padding-bottom: 1em;
   z-index: -1001;
+  background-color: pink;
 }
-
 .tool-box--menu {
-  top: 0px;
-  left: 0px;
+  top: 1%;
+  left: 1%;
 }
-
-.tool-card--menu {
-  display: table;
-  width: 100%;
-  margin-left: 5%;
-  text-align: center;
-}
-
-.menu--logo {
-  transform: rotate(-90deg);
-  display: table-column;
-}
-
-.menu--content {
-  display: table-column;
-}
-
 .tool-box--score {
-  bottom: 0px;
-  left: 0px;
+  bottom: 1%;
+  left: 1%;
 }
 
 .tool-card {
   border: solid 1px black;
-  background-color: white;
+  position: relative;
+  border: solid black 5px;
+  width: 50%;
+  padding: 0px;
+  height: 3em;
+  max-height: 10em; /* Use correct value here when it is clear how hight the card is.*/
+}
+
+.tool-card-left {
+  margin-left: auto;
+  text-align: left;
+}
+
+.tool-card--logo {
+  width: 90%;
+}
+
+.tool-card--button {
+  width: 90%;
 }
 
 .tool-card--score {
-  width: 30%;
-  margin-left: 75%;
-  text-align: center;
-}
-.tool-card--score-enter {
-  margin-left: 100%;
-}
-.tool-card--score-enter.tool-card--score-enter-active {
-  margin-left: 75%;
-  transition: margin-left 500ms ease-in;
-}
-.tool-card--score-leave {
-  margin-left: 75%;
+  width: 50%;
 }
 
-.tool-card--score-leave.tool-card--score-leave-active {
-  margin-left: 100%;
-  transition: margin-left 300ms ease-in;
+.tool-card-left-50-enter {
+  margin-right: -50%;
+}
+.tool-card-left-50-enter.tool-card-left-50-enter-active {
+  margin-right: 0%;
+  transition: margin-right 500ms ease-in-out;
+}
+.tool-card-50-leave {
+  margin-right: 0%;
+}
+.tool-card-left-50-leave.tool-card-left-50-leave-active {
+  margin-right: -50%;
+  max-height: 0;
+  transition:
+    margin-right 500ms 0ms ease-in-out,
+    max-height 500ms 500ms ease-in-out;
+}
+
+.tool-card-left-90-enter {
+  margin-right: -90%;
+}
+.tool-card-left-90-enter.tool-card-left-90-enter-active {
+  margin-right: 0%;
+  transition: margin-right 500ms ease-in-out;
+}
+.tool-card-90-leave {
+  margin-right: 0%;
+}
+.tool-card-left-90-leave.tool-card-left-90-leave-active {
+  margin-right: -90%;
+  max-height: 0;
+  transition:
+    margin-right 500ms 0ms ease-in-out,
+    max-height 500ms 500ms ease-in-out;
 }
 
 .start-game {
@@ -177,4 +196,63 @@
 .score-line {
   margin: 0em 1rem 1rem 1rem;
   font-size: 1.5rem;
+}
+
+.logo {
+  transform: rotate(-90deg);
+}
+
+.x {
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  border: solid black 1px;
+  width: 30px;
+  height: 30px;
+}
+
+
+
+.card-wrapper--outer {
+  border: solid black 1px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+.card-wrapper--inner {
+  border: solid black 1px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.card--addon {
+  box-sizing: border-box;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  margin-left: 30%;
+  background-color: gray;
+  border: solid blue 5px;
+  width: 20%;
+  max-height: 95%;
+}
+
+.card--content {
+  box-sizing: border-box;
+  position: relative;
+  margin-left: auto;
+  background-color: gray;
+  border: solid green 5px;
+  width: 70%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
