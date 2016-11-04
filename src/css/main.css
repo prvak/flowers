@@ -16,10 +16,10 @@
   left: 0px;
   bottom: 0px;
   margin: auto;
-  height: 60vm; /* IE9 fallback */
-  width: 100vm; /* IE9 fallback */
-  width: 100vmin;
-  height: 60vmin;
+  width: 100vw;
+  height: calc(9/16 * 100vw);
+  max-height: 100vh;
+  max-width: calc(16/9 * 100vh);
 }
 
 .garden {
@@ -33,11 +33,7 @@
   left: 0px;
   right: 0px;
   margin: auto;
-  height: 60vm; /* IE9 fallback */
-  width: 60vm; /* IE9 fallback */
-  width: 60vmin;
-  height: 60vmin;
-  position: absolute;
+  width: 56%;
 }
 
 .underground {
@@ -49,13 +45,8 @@
   left: 0px;
   right: 0px;
   margin: auto;
-  height: 60vm; /* IE9 fallback */
-  width: 60vm; /* IE9 fallback */
-  width: 60vmin;
-  height: 60vmin;
-  position: absolute;
+  width: 56%;
   z-index: -1000;
-  visibility: hidden;
 }
 
 .flower {
