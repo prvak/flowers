@@ -1,7 +1,8 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import ScoreCard from "../components/ScoreCard.react";
+import AddonRemove from "../components/AddonRemove.react";
+import CardScore from "../components/CardScore.react";
 import ToolCard from "../components/ToolCard.react";
 import GardenActions from "../actions/GardenActions";
 
@@ -14,20 +15,24 @@ export default class ScoreToolBox extends React.Component {
   }
   render() {
     const players = this.props.players;
-    const scores = [];
+    const elements = [];
     players.forEach((player, playerId) => {
       const color = player.get("color");
+      const score = player.get("score");
       const key = `score-${color}`;
-      // const score = player.get("score");
-      // const scoreCard = <ScoreCard score={score} />;
+      const card = <CardScore color={color} score={score} />;
+      let addon = undefined;
+      if (!this.props.isGameStarted) {
+        addon = <AddonRemove />;
+      }
       const removePlayer = () => {
         this._onRemovePlayer(playerId);
       };
-      scores.push(<ToolCard
+      elements.push(<ToolCard
         key={key}
         direction="left"
-        content="C"
-        addon="A" addonOnClick={removePlayer}
+        content={card}
+        addon={addon} addonOnClick={removePlayer}
       />);
       // const style = {
       // };
@@ -45,7 +50,7 @@ export default class ScoreToolBox extends React.Component {
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}
         >
-          {scores}
+          {elements}
         </ReactCSSTransitionGroup>
       </div>
     );
@@ -53,5 +58,7 @@ export default class ScoreToolBox extends React.Component {
 }
 
 ScoreToolBox.propTypes = {
+  isGameOver: React.PropTypes.bool.isRequired,
+  isGameStarted: React.PropTypes.bool.isRequired,
   players: React.PropTypes.object.isRequired,
 };

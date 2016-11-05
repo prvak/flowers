@@ -250,3 +250,11 @@
   margin-bottom: 5px;
   pointer-events: all;
 }
+
+.card-score {
+  text-align: center;
+}
+
+.addon-remove {
+  text-align: center;
+}

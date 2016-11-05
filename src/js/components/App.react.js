@@ -96,7 +96,11 @@ class App extends React.Component {
     // the toolbox would be visible below the garden since the garden has
     // partial transparency.
     const underground = (<div className="underground"></div>);
-    const scoreToolBox = (<ScoreToolBox players={this.state.players} />);
+    const scoreToolBox = (<ScoreToolBox
+      isGameStarted={this.state.isGameStarted}
+      isGameOver={this.state.isGameOver}
+      players={this.state.players}
+    />);
     const menuToolBox = (<MenuToolBox
       isGameStarted={this.state.isGameStarted}
       isGameOver={this.state.isGameOver}
