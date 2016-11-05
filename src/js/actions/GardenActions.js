@@ -2,10 +2,9 @@ import AppDispatcher from "../dispatcher/AppDispatcher";
 import ActionConstants from "../constants/ActionConstants";
 
 const SpaceActions = {
-  startGame: (playerColors) => {
+  startGame: () => {
     AppDispatcher.dispatch({
       actionType: ActionConstants.GARDEN_START_GAME,
-      playerColors,
     });
   },
   addFlower: (flower) => {
@@ -14,10 +13,16 @@ const SpaceActions = {
       flower,
     });
   },
-  addPlayer: (player) => {
+  addPlayer: (color) => {
     AppDispatcher.dispatch({
       actionType: ActionConstants.GARDEN_ADD_PLAYER,
-      player,
+      color,
+    });
+  },
+  removePlayer: (playerId) => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_REMOVE_PLAYER,
+      playerId,
     });
   },
   addConnection: (flowerId) => {

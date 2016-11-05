@@ -52,6 +52,8 @@ class App extends React.Component {
     createFlowers(GardenConstants.FLOWER_COLOR_PURPLE, [
       null, { x: 1150, y: 656 }, { x: 384, y: 812 }, { x: 204, y: 196 }, { x: 1112, y: 1312 },
     ]);
+    GardenActions.addPlayer(GardenConstants.PLAYER_COLOR_PURPLE);
+    GardenActions.addPlayer(GardenConstants.PLAYER_COLOR_RED);
   }
 
   componentDidMount() {

@@ -67,28 +67,30 @@ class GardenStore extends EventEmitter {
     this._flowers = this._flowers.push(Immutable.fromJS(flower));
   }
 
-  startGame(playerColors) {
+  startGame() {
     this._connections = new Immutable.List([]);
     this._players = new Immutable.List([]);
 
-    const maxLength = 2.5;
-    playerColors.forEach((color) => {
-      this.addPlayer({ color, maxLength });
-    });
     this._isGameStarted = true;
     this._isGameOver = false;
     this._activePlayerId = 0;
   }
 
-  addPlayer(player) {
+  addPlayer(color) {
+    const maxLength = 2.5;
     const p = {
-      color: player.color,
-      maxLength: player.maxLength,
-      remainingLength: player.maxLength,
+      color,
+      maxLength,
+      remainingLength: maxLength,
       score: 0,
     };
     this._players = this._players.push(Immutable.fromJS(p));
     this._connections = this._connections.push(new Immutable.List([]));
+  }
+
+  removePlayer(playerId) {
+    this._players = this._players.remove(playerId);
+    this._connections = this._connections.remove(playerId);
   }
 
   addConnection(flowerId) {
@@ -170,7 +172,7 @@ const store = new GardenStore();
 AppDispatcher.register((action) => {
   switch (action.actionType) {
     case ActionConstants.GARDEN_START_GAME:
-      store.startGame(action.playerColors);
+      store.startGame();
       store.emitChange();
       break;
     case ActionConstants.GARDEN_ADD_FLOWER:
@@ -178,7 +180,11 @@ AppDispatcher.register((action) => {
       store.emitChange();
       break;
     case ActionConstants.GARDEN_ADD_PLAYER:
-      store.addPlayer(action.player);
+      store.addPlayer(action.color);
+      store.emitChange();
+      break;
+    case ActionConstants.GARDEN_REMOVE_PLAYER:
+      store.removePlayer(action.playerId);
       store.emitChange();
       break;
     case ActionConstants.GARDEN_ADD_CONNECTION:
