@@ -1,7 +1,19 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
+import GardenActions from "../actions/GardenActions";
+import ToolCard from "../components/ToolCard.react";
+
 export default class MenuToolBox extends React.Component {
+  constructor() {
+    super();
+    this._onNewGame = () => {
+      console.log("Not implemented yet.");
+    };
+    this._onStartGame = () => {
+      GardenActions.startGame();
+    };
+  }
   render() {
     const elements = [];
     const logoCard = (
@@ -14,15 +26,21 @@ export default class MenuToolBox extends React.Component {
     elements.push(logoCard);
 
     if (this.props.isGameStarted && !this.props.isGameOver) {
-      const newGameCard = (
-        <div key="new-game" className="tool-card tool-card-left tool-card--button">New Game</div>
-      );
+      const newGameCard = (<ToolCard
+        key="new-game"
+        direction="left"
+        content={<div>"New Game"</div>}
+        contentOnClick={this._onNewGame}
+      />);
       elements.push(newGameCard);
     } else if (!this.props.isGameStarted || this.props.isGameOver) {
-      const restartGameCard = (
-        <div key="restart-game" className="tool-card tool-card-left tool-card--button">Start</div>
-      );
-      elements.push(restartGameCard);
+      const startGameCard = (<ToolCard
+        key="start-game"
+        direction="left"
+        content={<div>"Start Game"</div>}
+        contentOnClick={this._onStartGame}
+      />);
+      elements.push(startGameCard);
     }
 
     return (

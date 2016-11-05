@@ -9,30 +9,35 @@ export default class ToolCard extends React.Component {
     }
   }
   render() {
-    return (
-      <div className="tool-card tool-card-left">
-        <ReactCSSTransitionGroup
-          transitionName="tool-card-left-50"
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={1000}
-        >
-          <div className="card-wrapper--outer">
-            <div className="card-wrapper--inner">
-              <div className="card--addon" onClick={this.props.addonOnClick}>
-                {this.props.addon}
-              </div>
-            </div>
-          </div>
-        </ReactCSSTransitionGroup>
+    const addon = (
+      <ReactCSSTransitionGroup
+        transitionName="tool-card-left-50"
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={1000}
+      >
         <div className="card-wrapper--outer">
           <div className="card-wrapper--inner">
-            <div className="card--content" onClick={this.props.contentOnClick}>
-              {this.props.content}
+            <div className="card--addon" onClick={this.props.addonOnClick}>
+              {this.props.addon}
             </div>
+          </div>
+        </div>
+      </ReactCSSTransitionGroup>
+    );
+    const content = (
+      <div className="card-wrapper--outer">
+        <div className="card-wrapper--inner">
+          <div className="card--content" onClick={this.props.contentOnClick}>
+            {this.props.content}
           </div>
         </div>
       </div>
     );
+    if (this.props.addon) {
+      return <div className="tool-card tool-card-left">{addon} {content}</div>;
+    } else {
+      return <div className="tool-card tool-card-left">{content}</div>;
+    }
   }
 }
 

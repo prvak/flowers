@@ -35,6 +35,7 @@
   right: 0px;
   margin: auto;
   width: 56%;
+  pointer-events: all;
 }
 
 .underground {

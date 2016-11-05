@@ -68,9 +68,6 @@ class GardenStore extends EventEmitter {
   }
 
   startGame() {
-    this._connections = new Immutable.List([]);
-    this._players = new Immutable.List([]);
-
     this._isGameStarted = true;
     this._isGameOver = false;
     this._activePlayerId = 0;
