@@ -285,19 +285,24 @@
 
 /** Addon on the left. */
 .addon-left-w2-enter {
- right: 30%;
+  right: 30%;
+  max-height: 0;
 }
 .addon-left-w2-enter.addon-left-w2-enter-active {
- right: 60%;
- transition: margin-right 500ms ease-in-out;
+  right: 60%;
+  max-height: calc(100vh / 9);
+  transition:
+    max-height 500ms 0ms ease-in-out,
+    right 500ms 500ms ease-in-out;
 }
 .addon-left-w2-leave {
- right: 60%;
+  right: 60%;
+  max-height: calc(100vh / 9);
 }
 .addon-left-w2-leave.addon-left-w2-leave-active {
- right: 30%;
- max-height: 0;
- transition:
-   right 500ms 0ms ease-in-out,
-   max-height 500ms 500ms ease-in-out;
+  right: 30%;
+  max-height: 0;
+  transition:
+    right 500ms 0ms ease-in-out,
+    max-height 500ms 500ms ease-in-out;
 }
