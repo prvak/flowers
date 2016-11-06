@@ -7,6 +7,11 @@ const SpaceActions = {
       actionType: ActionConstants.GARDEN_START_GAME,
     });
   },
+  newGame: () => {
+    AppDispatcher.dispatch({
+      actionType: ActionConstants.GARDEN_NEW_GAME,
+    });
+  },
   addFlower: (flower) => {
     AppDispatcher.dispatch({
       actionType: ActionConstants.GARDEN_ADD_FLOWER,

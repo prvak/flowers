@@ -6,7 +6,7 @@ export default class ToolCardWithAddon extends React.Component {
     const addons = [];
     if (this.props.addon) {
       addons.push(
-        <div key="addon" className="card--addon" onClick={this.props.addonOnClick}>
+        <div key={this.props.addonKey} className="card--addon" onClick={this.props.addonOnClick}>
           {this.props.addon}
         </div>
       );
@@ -43,5 +43,6 @@ ToolCardWithAddon.propTypes = {
   content: React.PropTypes.element.isRequired,
   contentOnClick: React.PropTypes.func,
   addon: React.PropTypes.element,
+  addonKey: React.PropTypes.string,
   addonOnClick: React.PropTypes.func,
 };

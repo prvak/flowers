@@ -8,7 +8,7 @@ export default class MenuToolBox extends React.Component {
   constructor() {
     super();
     this._onNewGame = () => {
-      console.log("Not implemented yet.");
+      GardenActions.newGame();
     };
     this._onStartGame = () => {
       GardenActions.startGame();
@@ -25,7 +25,7 @@ export default class MenuToolBox extends React.Component {
     />);
     elements.push(logoCard);
 
-    if (this.props.isGameStarted && !this.props.isGameOver) {
+    if (this.props.isGameStarted || this.props.isGameOver) {
       const newGameCard = (<ToolCard
         key="new-game"
         direction="left"

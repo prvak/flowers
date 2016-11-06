@@ -71,10 +71,28 @@ class GardenStore extends EventEmitter {
     this._isGameStarted = true;
     this._isGameOver = false;
     this._activePlayerId = 0;
+    const maxLength = 0.5; // TODO: choose length based on number of players
+    this._players = this._players.withMutations((players) => {
+      players.forEach((player, playerId) => {
+        players.set(playerId, player.withMutations((p) => {
+          p.set("score", 0);
+          p.set("maxLength", maxLength);
+          p.set("remainingLength", maxLength);
+        }));
+      });
+    });
+    this._clearConnections();
+  }
+
+  newGame() {
+    this._isGameStarted = false;
+    this._isGameOver = false;
+    this._activePlayerId = 0;
+    this._clearConnections();
   }
 
   addPlayer(color) {
-    const maxLength = 2.5;
+    const maxLength = 0.5;
     const p = {
       color,
       maxLength,
@@ -91,6 +109,9 @@ class GardenStore extends EventEmitter {
   }
 
   addConnection(flowerId) {
+    if (this._isGameOver || !this._isGameStarted) {
+      return;
+    }
     const takeAnalysis = Logic.canTakeFlower(this._activePlayerId, flowerId,
         this._players, this._flowers, this._connections);
     if (takeAnalysis === false) {
@@ -161,6 +182,14 @@ class GardenStore extends EventEmitter {
       this._players = this._players.set(playerId, player.set("score", score));
     });
   }
+
+  _clearConnections() {
+    this._connections = this._connections.withMutations((connections) => {
+      connections.forEach((c, playerId) => {
+        connections.set(playerId, new Immutable.List([]));
+      });
+    });
+  }
 }
 
 const store = new GardenStore();
@@ -170,6 +199,10 @@ AppDispatcher.register((action) => {
   switch (action.actionType) {
     case ActionConstants.GARDEN_START_GAME:
       store.startGame();
+      store.emitChange();
+      break;
+    case ActionConstants.GARDEN_NEW_GAME:
+      store.newGame();
       store.emitChange();
       break;
     case ActionConstants.GARDEN_ADD_FLOWER:

@@ -181,26 +181,25 @@
 
 .card--addon {
   box-sizing: border-box;
+  border: solid blue 5px;
   position: absolute;
   margin: auto;
   top: 0;
   bottom: 0;
   right: 60%;
   background-color: gray;
-  border: solid blue 5px;
   width: 30%;
-  max-height: 95%;
+  height: 100%;
   pointer-events: all;
 }
 
 .card--content {
   box-sizing: border-box;
+  border: solid green 5px;
   position: relative;
   margin-left: auto;
   background-color: gray;
-  border: solid green 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  height: 100%;
   pointer-events: all;
 }
 

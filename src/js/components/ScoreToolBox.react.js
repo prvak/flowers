@@ -18,9 +18,56 @@ export default class ScoreToolBox extends React.Component {
       GardenActions.removePlayer(playerId);
     };
   }
+  _findBestPlayerId(players) {
+    let bestScore = 0;
+    let bestPlayerId = 0;
+    players.forEach((player, playerId) => {
+      const score = player.get("score");
+      if (bestScore < score) {
+        bestScore = score;
+        bestPlayerId = playerId;
+      }
+    });
+    return bestPlayerId;
+  }
+
   render() {
     const players = this.props.players;
+    const bestPlayerId = this._findBestPlayerId(players);
     const elements = [];
+    players.forEach((player, playerId) => {
+      const color = player.get("color");
+      const score = player.get("score");
+      const key = `score-${color}`;
+      const card = <CardScore color={color} score={score} />;
+      let addon = undefined;
+      let addonKey = undefined;
+      if (!this.props.isGameStarted && players.size > 1) {
+        addon = <AddonRemove />;
+        addonKey = "remove";
+      } else if (this.props.isGameOver && playerId === bestPlayerId) {
+        addon = <div>1</div>
+        addonKey = "winner";
+      }
+      const removePlayer = () => {
+        this._onRemovePlayer(playerId);
+      };
+      elements.push(<ToolCardWithAddon
+        key={key}
+        direction="left"
+        width="w2"
+        content={card}
+        addon={addon} addonKey={addonKey} addonOnClick={removePlayer}
+      />);
+      // const style = {
+      // };
+      // scores.push(<div
+      //   style={style} key={key}
+      //   className="tool-card tool-card-left tool-card--score"
+      // >
+      //   <ScoreCard score={score} />
+      // </div>);
+    });
     if (players.size < 3 && !this.props.isGameStarted) {
       const allColors = [
         GardenConstants.PLAYER_COLOR_RED,
@@ -43,34 +90,8 @@ export default class ScoreToolBox extends React.Component {
         content={<div>+</div>} contentOnClick={addPlayer}
       />);
     }
-    players.reverse().forEach((player, playerId) => {
-      const color = player.get("color");
-      const score = player.get("score");
-      const key = `score-${color}`;
-      const card = <CardScore color={color} score={score} />;
-      let addon = undefined;
-      if (!this.props.isGameStarted && players.size > 1) {
-        addon = <AddonRemove />;
-      }
-      const removePlayer = () => {
-        this._onRemovePlayer(playerId);
-      };
-      elements.push(<ToolCardWithAddon
-        key={key}
-        direction="left"
-        width="w2"
-        content={card}
-        addon={addon} addonOnClick={removePlayer}
-      />);
-      // const style = {
-      // };
-      // scores.push(<div
-      //   style={style} key={key}
-      //   className="tool-card tool-card-left tool-card--score"
-      // >
-      //   <ScoreCard score={score} />
-      // </div>);
-    });
+    // Reverse the order so that the player that was added latest is at the top.
+    elements.reverse();
     return (
       <div className="tool-box tool-box--score">
         <ReactCSSTransitionGroup
