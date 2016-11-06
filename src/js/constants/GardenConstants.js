@@ -11,6 +11,7 @@ const GardenConstants = {
   FLOWER_SIZE_8: 3.5,
   PLAYER_COLOR_RED: "red",
   PLAYER_COLOR_PURPLE: "purple",
+  PLAYER_COLOR_YELLOW: "yellow",
   FLOWER_CLICK_AREA: 0.13,
 };
 

@@ -118,9 +118,10 @@
   border: solid black 5px;
   width: 90%;
   padding: 0px;
-  height: 3em;
-  max-height: 10em; /* Use correct value here when it is clear how hight the card is.*/
+  height: calc((9/16 * 100vw) / 9);
+  max-height: calc(100vh / 9);
   pointer-events: none;
+  overflow: hidden;
 }
 
 .tool-card-left {
@@ -152,32 +153,8 @@
   width: 90%;
 }
 
-.start-game {
-  height: 6em;
-  margin: auto;
-}
-
-.button {
-  border: solid 1px black;
-  margin: 0em 1rem 1rem 1rem;
-}
-
-.score-line {
-  margin: 0em 1rem 1rem 1rem;
-  font-size: 1.5rem;
-}
-
 .logo {
   transform: rotate(-90deg);
-}
-
-.x {
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  border: solid black 1px;
-  width: 30px;
-  height: 30px;
 }
 
 
@@ -242,13 +219,18 @@
  /** Wide card on the left. */
 .card-left-w3-enter {
   right: -90%;
+  max-height: 0;
 }
 .card-left-w3-enter.card-left-w3-enter-active {
   right: 0%;
-  transition: margin-right 500ms ease-in-out;
+  max-height: calc(100vh / 9);
+  transition:
+    max-height 500ms 0ms ease-in-out,
+    right 500ms 500ms ease-in-out;
 }
 .card-left-w3-leave {
   right: 0%;
+  max-height: calc(100vh / 9);
 }
 .card-left-w3-leave.card-left-w3-leave-active {
   right: -90%;
@@ -261,13 +243,18 @@
 /** Middle-sized card on the left. */
 .card-left-w2-enter {
  right: -60%;
+ max-height: 0;
 }
 .card-left-w2-enter.card-left-w2-enter-active {
  right: 0%;
- transition: margin-right 500ms ease-in-out;
+ max-height: calc(100vh / 9);
+ transition:
+    max-height 500ms 0ms ease-in-out,
+    right 500ms 500ms ease-in-out;
 }
 .card-left-w2-leave {
  right: 0%;
+ max-height: calc(100vh / 9);
 }
 .card-left-w2-leave.card-left-w2-leave-active {
  right: -60%;

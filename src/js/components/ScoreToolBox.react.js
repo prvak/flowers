@@ -3,12 +3,17 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import AddonRemove from "../components/AddonRemove.react";
 import CardScore from "../components/CardScore.react";
+import ToolCard from "../components/ToolCard.react";
 import ToolCardWithAddon from "../components/ToolCardWithAddon.react";
 import GardenActions from "../actions/GardenActions";
+import GardenConstants from "../constants/GardenConstants";
 
 export default class ScoreToolBox extends React.Component {
   constructor() {
     super();
+    this._onAddPlayer = (color) => {
+      GardenActions.addPlayer(color);
+    };
     this._onRemovePlayer = (playerId) => {
       GardenActions.removePlayer(playerId);
     };
@@ -16,6 +21,28 @@ export default class ScoreToolBox extends React.Component {
   render() {
     const players = this.props.players;
     const elements = [];
+    if (players.size < 3 && !this.props.isGameStarted) {
+      const allColors = [
+        GardenConstants.PLAYER_COLOR_RED,
+        GardenConstants.PLAYER_COLOR_PURPLE,
+        GardenConstants.PLAYER_COLOR_YELLOW,
+      ];
+      const addPlayer = () => {
+        const freeColor = allColors.find((color) => {
+          const found = players.find((player) => {
+            return player.get("color") === color;
+          });
+          return !found;
+        });
+        this._onAddPlayer(freeColor);
+      };
+      elements.push(<ToolCard
+        key="add-player"
+        direction="left"
+        width="w1"
+        content={<div>+</div>} contentOnClick={addPlayer}
+      />);
+    }
     players.forEach((player, playerId) => {
       const color = player.get("color");
       const score = player.get("score");
