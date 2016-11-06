@@ -2,6 +2,7 @@ import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import AddonRemove from "../components/AddonRemove.react";
+import AddonWinner from "../components/AddonWinner.react";
 import CardScore from "../components/CardScore.react";
 import ToolCard from "../components/ToolCard.react";
 import ToolCardWithAddon from "../components/ToolCardWithAddon.react";
@@ -46,7 +47,7 @@ export default class ScoreToolBox extends React.Component {
         addon = <AddonRemove />;
         addonKey = "remove";
       } else if (this.props.isGameOver && playerId === bestPlayerId) {
-        addon = <div>1</div>
+        addon = <AddonWinner />;
         addonKey = "winner";
       }
       const removePlayer = () => {
@@ -87,7 +88,7 @@ export default class ScoreToolBox extends React.Component {
         key="add-player"
         direction="left"
         width="w1"
-        content={<div>+</div>} contentOnClick={addPlayer}
+        content={<div className="card--centered">+</div>} contentOnClick={addPlayer}
       />);
     }
     // Reverse the order so that the player that was added latest is at the top.

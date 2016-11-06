@@ -20,7 +20,7 @@ export default class MenuToolBox extends React.Component {
       key="logo"
       direction="left"
       width="w3"
-      content={<span className="logo">"Flowers"</span>}
+      content={<div className="logo card--centered">Flowers</div>}
       contentOnClick={this._onNewGame}
     />);
     elements.push(logoCard);
@@ -30,7 +30,7 @@ export default class MenuToolBox extends React.Component {
         key="new-game"
         direction="left"
         width="w3"
-        content={<div>"New Game"</div>}
+        content={<div className="card--centered">New Game</div>}
         contentOnClick={this._onNewGame}
       />);
       elements.push(newGameCard);
@@ -39,7 +39,7 @@ export default class MenuToolBox extends React.Component {
         key="start-game"
         direction="left"
         width="w3"
-        content={<div>"Start Game"</div>}
+        content={<div className="card--centered">Start Game</div>}
         contentOnClick={this._onStartGame}
       />);
       elements.push(startGameCard);

@@ -2,7 +2,7 @@ import React from "react";
 
 export default class ToolCard extends React.Component {
   render() {
-    const className = `card--content card-${this.props.width}`;
+    const className = `card card-${this.props.width} card--content`;
     return (
       <div className="tool-card tool-card-left">
         <div className="card-wrapper--outer">
