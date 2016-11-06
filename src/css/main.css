@@ -140,40 +140,16 @@
   width: 50%;
 }
 
-.tool-card-left-50-enter {
-  margin-right: -50%;
-}
-.tool-card-left-50-enter.tool-card-left-50-enter-active {
-  margin-right: 0%;
-  transition: margin-right 500ms ease-in-out;
-}
-.tool-card-50-leave {
-  margin-right: 0%;
-}
-.tool-card-left-50-leave.tool-card-left-50-leave-active {
-  margin-right: -50%;
-  max-height: 0;
-  transition:
-    margin-right 500ms 0ms ease-in-out,
-    max-height 500ms 500ms ease-in-out;
+.card-w1 {
+  width: 30%;
 }
 
-.tool-card-left-90-enter {
-  margin-right: -90%;
+.card-w2 {
+  width: 60%;
 }
-.tool-card-left-90-enter.tool-card-left-90-enter-active {
-  margin-right: 0%;
-  transition: margin-right 500ms ease-in-out;
-}
-.tool-card-90-leave {
-  margin-right: 0%;
-}
-.tool-card-left-90-leave.tool-card-left-90-leave-active {
-  margin-right: -90%;
-  max-height: 0;
-  transition:
-    margin-right 500ms 0ms ease-in-out,
-    max-height 500ms 500ms ease-in-out;
+
+.card-w3 {
+  width: 90%;
 }
 
 .start-game {
@@ -246,7 +222,6 @@
   margin-left: auto;
   background-color: gray;
   border: solid green 5px;
-  width: 60%;
   margin-top: 5px;
   margin-bottom: 5px;
   pointer-events: all;
@@ -258,4 +233,84 @@
 
 .addon-remove {
   text-align: center;
+}
+
+/**
+ * Animations
+ */
+
+ /** Wide card on the left. */
+.card-left-w3-enter {
+  right: -90%;
+}
+.card-left-w3-enter.card-left-w3-enter-active {
+  right: 0%;
+  transition: margin-right 500ms ease-in-out;
+}
+.card-left-w3-leave {
+  right: 0%;
+}
+.card-left-w3-leave.card-left-w3-leave-active {
+  right: -90%;
+  max-height: 0;
+  transition:
+    right 500ms 0ms ease-in-out,
+    max-height 500ms 500ms ease-in-out;
+}
+
+/** Middle-sized card on the left. */
+.card-left-w2-enter {
+ right: -60%;
+}
+.card-left-w2-enter.card-left-w2-enter-active {
+ right: 0%;
+ transition: margin-right 500ms ease-in-out;
+}
+.card-left-w2-leave {
+ right: 0%;
+}
+.card-left-w2-leave.card-left-w2-leave-active {
+ right: -60%;
+ max-height: 0;
+ transition:
+   right 500ms 0ms ease-in-out,
+   max-height 500ms 500ms ease-in-out;
+}
+
+ /** Small card on the left. */
+.card-left-w1-enter {
+  right: -30%;
+}
+.card-left-w1-enter.card-left-w1-enter-active {
+  right: 0%;
+  transition: margin-right 500ms ease-in-out;
+}
+.card-left-w1-leave {
+  right: 0%;
+}
+.card-left-w1-leave.card-left-w1-leave-active {
+  right: -30%;
+  max-height: 0;
+  transition:
+    right 500ms 0ms ease-in-out,
+    max-height 500ms 500ms ease-in-out;
+}
+
+/** Addon on the left. */
+.addon-left-w2-enter {
+ right: 30%;
+}
+.addon-left-w2-enter.addon-left-w2-enter-active {
+ right: 60%;
+ transition: margin-right 500ms ease-in-out;
+}
+.addon-left-w2-leave {
+ right: 60%;
+}
+.addon-left-w2-leave.addon-left-w2-leave-active {
+ right: 30%;
+ max-height: 0;
+ transition:
+   right 500ms 0ms ease-in-out,
+   max-height 500ms 500ms ease-in-out;
 }
