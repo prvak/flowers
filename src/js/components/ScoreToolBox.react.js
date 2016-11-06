@@ -43,22 +43,23 @@ export default class ScoreToolBox extends React.Component {
       const card = <CardScore color={color} score={score} />;
       let addon = undefined;
       let addonKey = undefined;
+      let addonOnClick = undefined;
       if (!this.props.isGameStarted && players.size > 1) {
         addon = <AddonRemove />;
         addonKey = "remove";
+        addonOnClick = () => {
+          this._onRemovePlayer(playerId);
+        };
       } else if (this.props.isGameOver && playerId === bestPlayerId) {
         addon = <AddonWinner />;
         addonKey = "winner";
       }
-      const removePlayer = () => {
-        this._onRemovePlayer(playerId);
-      };
       elements.push(<ToolCardWithAddon
         key={key}
         direction="left"
         width="w2"
         content={card}
-        addon={addon} addonKey={addonKey} addonOnClick={removePlayer}
+        addon={addon} addonKey={addonKey} addonOnClick={addonOnClick}
       />);
       // const style = {
       // };

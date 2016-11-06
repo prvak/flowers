@@ -68,10 +68,24 @@ class GardenStore extends EventEmitter {
   }
 
   startGame() {
+    const numPlayers = this._players.size;
+    let maxLength = 0;
+    switch (numPlayers) {
+      case 1:
+        maxLength = 3.0;
+        break;
+      case 2:
+        maxLength = 2.5;
+        break;
+      case 3:
+        maxLength = 2.0;
+        break;
+      default:
+        throw new Error(`Game of ${numPlayers} is not supported.`);
+    }
     this._isGameStarted = true;
     this._isGameOver = false;
     this._activePlayerId = 0;
-    const maxLength = 0.5; // TODO: choose length based on number of players
     this._players = this._players.withMutations((players) => {
       players.forEach((player, playerId) => {
         players.set(playerId, player.withMutations((p) => {

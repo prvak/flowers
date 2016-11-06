@@ -21,7 +21,6 @@ export default class MenuToolBox extends React.Component {
       direction="left"
       width="w3"
       content={<div className="logo card--centered">Flowers</div>}
-      contentOnClick={this._onNewGame}
     />);
     elements.push(logoCard);
 
