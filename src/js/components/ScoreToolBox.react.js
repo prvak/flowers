@@ -43,7 +43,7 @@ export default class ScoreToolBox extends React.Component {
         content={<div>+</div>} contentOnClick={addPlayer}
       />);
     }
-    players.forEach((player, playerId) => {
+    players.reverse().forEach((player, playerId) => {
       const color = player.get("color");
       const score = player.get("score");
       const key = `score-${color}`;
