@@ -71,6 +71,34 @@
   background-image: url(../graphics/player-red.png);
 }
 
+.connection.yellow {
+  background-image: url(../graphics/player-red.png);
+}
+
+.score.purple::after{
+  background-color: purple;
+}
+.score.red::after{
+  background-color: red;
+}
+.score.yellow::after{
+  background-color: yellow;
+}
+
+.score::after{
+  content: '';
+  display: inline-block;
+  width: 3vw;
+  height: 3vw;
+  margin-left: 3vw;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+}
+
 .highlight {
   position: absolute;
   border-radius: 50%;
@@ -85,43 +113,29 @@
   background-color: red;
 }
 
-.message-box {
-  text-align: center;
-  border: solid 1px black;
-  width: 20em;
-  background-color: white;
-  position: absolute;
-  margin: auto;
-  top: 30%;
-  left: 0px;
-  right: 0px;
-  z-index: 255;
-}
-
 .tool-box {
   width: 20%;
   position: absolute;
   z-index: -1001;
-  background-color: pink;
 }
 .tool-box--menu {
   top: 1%;
-  left: 1%;
+  left: 3%;
 }
 .tool-box--score {
   bottom: 1%;
-  left: 1%;
+  left: 3%;
 }
 
 .tool-card {
   position: relative;
-  border: solid black 5px;
-  width: 90%;
+  width: 100%;
   padding: 0px;
   height: calc((9/16 * 100vw) / 9);
   max-height: calc(100vh / 9);
   pointer-events: none;
-  overflow: hidden;
+  margin-top: 0.3vw;
+  margin-bottom: 0.3vw;
 }
 
 .tool-card-left {
@@ -154,13 +168,11 @@
 }
 
 .logo {
-  transform: rotate(-90deg);
 }
 
 
 
 .card-wrapper--outer {
-  border: solid black 1px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -170,7 +182,6 @@
 }
 
 .card-wrapper--inner {
-  border: solid black 1px;
   position: absolute;
   left: 0;
   right: 0;
@@ -179,36 +190,44 @@
   margin: auto;
 }
 
-.card--addon {
+.card {
+  font-size: 1.5vw;
   box-sizing: border-box;
-  border: solid blue 5px;
+  border: solid green 1px;
+  border-radius: 1vw;
+  background: url(../graphics/card-background.png);
+  pointer-events: all;
+}
+
+.card--addon {
   position: absolute;
   margin: auto;
   top: 0;
   bottom: 0;
-  right: 60%;
-  background-color: gray;
-  width: 30%;
+  right: 50%;
+  width: 40%;
   height: 100%;
-  pointer-events: all;
+  box-shadow: 2px 2px 5px 4px rgba(138,138,138,1);
 }
 
 .card--content {
-  box-sizing: border-box;
-  border: solid green 5px;
   position: relative;
   margin-left: auto;
-  background-color: gray;
   height: 100%;
-  pointer-events: all;
+  box-shadow: 5px 5px 10px 5px rgba(138,138,138,1);
 }
 
 .card-score {
-  text-align: center;
 }
 
 .addon-remove {
-  text-align: center;
+}
+
+.card--centered {
+  margin-left: 2vw;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /**
@@ -284,22 +303,22 @@
 
 /** Addon on the left. */
 .addon-left-w2-enter {
-  right: 30%;
+  right: 18%;
   max-height: 0;
 }
 .addon-left-w2-enter.addon-left-w2-enter-active {
-  right: 60%;
+  right: 50%;
   max-height: calc(100vh / 9);
   transition:
     max-height 500ms 0ms ease-in-out,
     right 500ms 500ms ease-in-out;
 }
 .addon-left-w2-leave {
-  right: 60%;
+  right: 50%;
   max-height: calc(100vh / 9);
 }
 .addon-left-w2-leave.addon-left-w2-leave-active {
-  right: 30%;
+  right: 18%;
   max-height: 0;
   transition:
     right 500ms 0ms ease-in-out,
