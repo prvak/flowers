@@ -75,22 +75,24 @@
   background-image: url(../graphics/player-red.png);
 }
 
-.score.purple::after{
+.score {
+}
+.score.purple::after {
   background-color: purple;
 }
-.score.red::after{
+.score.red::after {
   background-color: red;
 }
-.score.yellow::after{
+.score.yellow::after {
   background-color: yellow;
 }
 
 .score::after{
   content: '';
   display: inline-block;
-  width: 3vw;
-  height: 3vw;
-  margin-left: 3vw;
+  width: 2em;
+  height: 2em;
+  margin-left: 2em;
   border-radius: 50%;
   position: absolute;
   margin-top: auto;
@@ -134,8 +136,8 @@
   height: calc((9/16 * 100vw) / 9);
   max-height: calc(100vh / 9);
   pointer-events: none;
-  margin-top: 0.3vw;
-  margin-bottom: 0.3vw;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .tool-card-left {
@@ -191,7 +193,7 @@
 }
 
 .card {
-  font-size: 1.5vw;
+  font-size: 3vmin;
   box-sizing: border-box;
   border: solid green 1px;
   border-radius: 1vw;
@@ -224,7 +226,7 @@
 }
 
 .card--centered {
-  margin-left: 2vw;
+  margin-left: 1em;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
