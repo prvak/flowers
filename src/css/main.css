@@ -76,29 +76,28 @@
 }
 
 .score {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
-.score.purple::after {
+.score.purple::before {
   background-color: purple;
 }
-.score.red::after {
+.score.red::before {
   background-color: red;
 }
-.score.yellow::after {
+.score.yellow::before {
   background-color: yellow;
 }
-
-.score::after{
+.score::before {
   content: '';
-  display: inline-block;
   width: 2em;
   height: 2em;
-  margin-left: 2em;
   border-radius: 50%;
-  position: absolute;
-  margin-top: auto;
-  margin-bottom: auto;
-  top: 0;
-  bottom: 0;
+}
+.score--value {
+  width: 1.8em;
+  text-align: right;
 }
 
 .highlight {
@@ -193,10 +192,10 @@
 }
 
 .card {
-  font-size: 3vmin;
+  font-size: 1em; /** Base size is computed in App component after each window resize. */
   box-sizing: border-box;
   border: solid green 1px;
-  border-radius: 1vw;
+  border-radius: 1vmin;
   background: url(../graphics/card-background.png);
   pointer-events: all;
 }

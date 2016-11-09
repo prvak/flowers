@@ -104,7 +104,13 @@ class App extends React.Component {
     //   const color = activePlayer.get("color");
     //   return <div className={color} id="app">{garden}</div>;
     // }
-    return <div id="app">{garden} {underground} {menuToolBox} {scoreToolBox}</div>;
+    const w = this.state.windowSize.width;
+    const h = this.state.windowSize.height;
+    const fontSize = Math.min(0.6 * w, h) / 30;
+    const style = {
+      fontSize,
+    };
+    return <div style={style} id="app">{garden} {underground} {menuToolBox} {scoreToolBox}</div>;
   }
 }
 

@@ -6,7 +6,7 @@ export default class CardScore extends React.Component {
     const score = this.props.score;
     const className = `score ${color}`;
     return (<div className="card-score card--centered">
-      <span className={className}>{score}</span>
+      <div className={className}><div className="score--value">{score}</div></div>
     </div>);
   }
 }
