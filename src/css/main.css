@@ -176,7 +176,9 @@
 .logo {
 }
 
-
+.clickable {
+  cursor: pointer;
+}
 
 .card-wrapper--outer {
   position: absolute;
@@ -199,10 +201,11 @@
 .card {
   font-size: 1em; /** Base size is computed in App component after each window resize. */
   box-sizing: border-box;
-  border: solid green 1px;
+  border: solid green 0.05em;
   border-radius: 1vmin;
   background: url(../graphics/card-background.png);
   pointer-events: all;
+  overflow: hidden;
 }
 
 .card--addon {
@@ -329,4 +332,20 @@
   transition:
     right 500ms 0ms ease-in-out,
     max-height 500ms 500ms ease-in-out;
+}
+
+/** Hover over clickable card. */
+.clickable.card {
+  border-color: green;
+  margin-right: 0em;
+  transition:
+    border-color 200ms 0ms ease-in-out,
+    margin-right 200ms 0ms ease-in-out
+}
+.clickable.card:hover {
+  border-color: darkgreen;
+  margin-right: 0.2em;
+  transition:
+    border-color 200ms 0ms ease-in-out,
+    margin-right 200ms 0ms ease-in-out
 }

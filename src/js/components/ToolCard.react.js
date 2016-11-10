@@ -2,7 +2,10 @@ import React from "react";
 
 export default class ToolCard extends React.Component {
   render() {
-    const className = `card card-${this.props.width} card--content`;
+    let className = `card card-${this.props.width} card--content`;
+    if (this.props.contentOnClick) {
+      className += " clickable";
+    }
     const style = {
       order: this.props.order || 0,
     };

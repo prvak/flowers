@@ -5,17 +5,24 @@ export default class ToolCardWithAddon extends React.Component {
   render() {
     const addons = [];
     if (this.props.addon) {
+      let addonClassName = "card card--addon";
+      if (this.props.addonOnClick) {
+        addonClassName += " clickable";
+      }
       addons.push(
         <div
           key={this.props.addonKey}
-          className="card card--addon"
+          className={addonClassName}
           onClick={this.props.addonOnClick}
         >
           {this.props.addon}
         </div>
       );
     }
-    const className = `card card-${this.props.width} card--content`;
+    let contentClassName = `card card-${this.props.width} card--content`;
+    if (this.props.contentOnClick) {
+      contentClassName += " clickable";
+    }
     const style = {
       order: this.props.order || 0,
     };
@@ -34,7 +41,7 @@ export default class ToolCardWithAddon extends React.Component {
         </div>
         <div className="card-wrapper--outer">
           <div className="card-wrapper--inner">
-            <div className={className} onClick={this.props.contentOnClick}>
+            <div className={contentClassName} onClick={this.props.contentOnClick}>
               {this.props.content}
             </div>
           </div>
