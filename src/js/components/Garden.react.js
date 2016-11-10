@@ -45,12 +45,14 @@ class Garden extends React.Component {
       let lastFlowerId = null;
       let connectionIndex = 0;
       const player = players.get(playerId);
-      playerConnections.forEach((flowerId) => {
+      playerConnections.forEach((connection) => {
+        const flowerId = connection.get("flowerId");
         if (lastFlowerId !== null) {
+          const takenAtTurn = connection.get("turn");
           const start = flowers.get(lastFlowerId).get("position");
           const end = flowers.get(flowerId).get("position");
           const key = `c-${playerId}-${lastFlowerId}-${flowerId}`;
-          const zIndex = ((connectionIndex % 2) * 2) - 1;
+          const zIndex = (((connectionIndex % 2) * 2) - 1) * takenAtTurn;
           elements.push(
             <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />
           );
@@ -69,9 +71,15 @@ class Garden extends React.Component {
         return;
       }
       const connectionIndex = playerConnections.size;
-      const start = flowers.get(playerConnections.last()).get("position");
+      if (connectionIndex === 0) {
+        // Player does not have any connections yet.
+        return;
+      }
+      const lastConnection = playerConnections.last();
+      const lastFlowerId = lastConnection.get("flowerId");
+      const start = flowers.get(lastFlowerId).get("position");
       const key = `p-${playerId}`;
-      const zIndex = ((connectionIndex % 2) * 2) - 1;
+      const zIndex = (((connectionIndex % 2) * 2) - 1) * player.get("lastTurn");
       elements.push(
         <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />
       );
@@ -85,6 +93,7 @@ Garden.propTypes = {
   connections: React.PropTypes.object.isRequired,
   players: React.PropTypes.object.isRequired,
   activePlayerId: React.PropTypes.number.isRequired,
+  turn: React.PropTypes.number.isRequired,
 };
 
 export default Garden;

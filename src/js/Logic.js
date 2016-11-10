@@ -3,13 +3,15 @@ import Calculator from "./Calculator";
 const Logic = {
   isFlowerTaken: (flowerId, players, flowers, connections) => {
     return connections.some((playerConnections) => {
-      return playerConnections.some((takenFlowerId) => {
+      return playerConnections.some((connection) => {
+        const takenFlowerId = connection.get("flowerId");
         return takenFlowerId === flowerId;
       });
     });
   },
 
   canTakeFlower: (playerId, flowerId, players, flowers, connections) => {
+    let distance = 0;
     if (playerId >= players.size) {
       // Player does not exist.
       return false;
@@ -21,9 +23,13 @@ const Logic = {
       return false;
     }
 
-    const lastFlowerId = connections.get(playerId).last();
+    const lastConnection = connections.get(playerId).last();
+    if (!lastConnection) {
+      // Player does not have any connections yet.
+      return { distance };
+    }
+    const lastFlowerId = lastConnection.get("flowerId");
     const lastFlower = flowers.get(lastFlowerId);
-    let distance = 0;
     if (lastFlower) {
       const player = players.get(playerId);
       distance = Calculator.getDistanceBetweenFlowers(flower, lastFlower);
@@ -45,7 +51,8 @@ const Logic = {
     let score = 0;
     const playerConnections = connections.get(playerId);
     let lastFlowerId = null;
-    playerConnections.forEach((flowerId, connectionIndex) => {
+    playerConnections.forEach((connection, connectionIndex) => {
+      const flowerId = connection.get("flowerId");
       const flower = flowers.get(flowerId);
       score += flower.get("size");
       if (lastFlowerId !== null && connectionIndex % 2 !== 0) {

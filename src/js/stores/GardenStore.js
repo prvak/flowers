@@ -18,6 +18,7 @@ class GardenStore extends EventEmitter {
     this._flowers = new Immutable.List([]);
     this._connections = new Immutable.List([]);
     this._players = new Immutable.List([]);
+    this._turn = 1;
     this._activePlayerId = 0;
     this._isGameStarted = false;
     this._isGameOver = false;
@@ -63,6 +64,10 @@ class GardenStore extends EventEmitter {
     return this._activePlayerId;
   }
 
+  getTurn() {
+    return this._turn;
+  }
+
   addFlower(flower) {
     this._flowers = this._flowers.push(Immutable.fromJS(flower));
   }
@@ -86,12 +91,14 @@ class GardenStore extends EventEmitter {
     this._isGameStarted = true;
     this._isGameOver = false;
     this._activePlayerId = 0;
+    this._turn = 1;
     this._players = this._players.withMutations((players) => {
       players.forEach((player, playerId) => {
         players.set(playerId, player.withMutations((p) => {
           p.set("score", 0);
           p.set("maxLength", maxLength);
           p.set("remainingLength", maxLength);
+          p.set("lastTurn", 0);
         }));
       });
     });
@@ -102,6 +109,7 @@ class GardenStore extends EventEmitter {
     this._isGameStarted = false;
     this._isGameOver = false;
     this._activePlayerId = 0;
+    this._turn = 1;
     this._clearConnections();
   }
 
@@ -112,6 +120,7 @@ class GardenStore extends EventEmitter {
       maxLength,
       remainingLength: maxLength,
       score: 0,
+      lastTurn: 0,
     };
     this._players = this._players.push(Immutable.fromJS(p));
     this._connections = this._connections.push(new Immutable.List([]));
@@ -133,8 +142,12 @@ class GardenStore extends EventEmitter {
     }
 
     // Update connections.
+    const connection = {
+      flowerId,
+      turn: this._turn,
+    };
     const playerConnections = this._connections.get(this._activePlayerId);
-    const newPlayerConnections = playerConnections.push(flowerId);
+    const newPlayerConnections = playerConnections.push(Immutable.fromJS(connection));
     this._connections = this._connections.set(this._activePlayerId, newPlayerConnections);
 
     // Update player.
@@ -166,6 +179,9 @@ class GardenStore extends EventEmitter {
         break;
       }
     }
+
+    // Update turn.
+    this._turn += 1;
   }
 
   setHalfConnection(playerId, position) {
@@ -177,7 +193,11 @@ class GardenStore extends EventEmitter {
     if (playerConnections.size <= 0) {
       return;
     }
-    const lastFlowerId = playerConnections.last();
+    const lastConnection = playerConnections.last();
+    if (!lastConnection) {
+      return;
+    }
+    const lastFlowerId = lastConnection.get("flowerId");
     const lastFlower = this._flowers.get(lastFlowerId);
     const lastFlowerPosition = lastFlower.get("position").toJS();
     const remaining = player.get("remainingLength");
@@ -187,6 +207,7 @@ class GardenStore extends EventEmitter {
       finalPosition = Calculator.getPositionAtDistance(lastFlowerPosition, position, remaining);
     }
     player = player.set("position", Immutable.fromJS(finalPosition));
+    player = player.set("lastTurn", this._turn);
     this._players = this._players.set(playerId, player);
   }
 

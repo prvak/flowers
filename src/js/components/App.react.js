@@ -72,6 +72,7 @@ class App extends React.Component {
       connections: gardenStore.getConnections(),
       players: gardenStore.getPlayers(),
       activePlayerId: gardenStore.getActivePlayerId(),
+      turn: gardenStore.getTurn(),
       isGameStarted: gardenStore.isGameStarted(),
       isGameOver: gardenStore.isGameOver(),
       windowSize: HtmlUtils.getWindowSize(),
@@ -85,6 +86,7 @@ class App extends React.Component {
       connections={this.state.connections}
       players={this.state.players}
       activePlayerId={this.state.activePlayerId}
+      turn={this.state.turn}
     />);
     // Layer below the garden but above tool boxes. Without this layer
     // the toolbox would be visible below the garden since the garden has

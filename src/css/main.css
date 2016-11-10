@@ -48,7 +48,7 @@
   right: 0px;
   margin: auto;
   width: 56%;
-  z-index: -1000;
+  z-index: -100000; /** Needs to be lower than number of turns of longest game. */
 }
 
 .flower {
@@ -117,7 +117,7 @@
 .tool-box {
   width: 20%;
   position: absolute;
-  z-index: -1001;
+  z-index: -100001; /** Just below .underground*/
 }
 .tool-box--menu {
   top: 1%;
