@@ -58,6 +58,7 @@ export default class ScoreToolBox extends React.Component {
         key={key}
         direction="left"
         width="w2"
+        order={players.size - playerId}
         content={card}
         addon={addon} addonKey={addonKey} addonOnClick={addonOnClick}
       />);
@@ -89,6 +90,7 @@ export default class ScoreToolBox extends React.Component {
         key="add-player"
         direction="left"
         width="w1"
+        order={-1}
         content={<div className="card--centered">+</div>} contentOnClick={addPlayer}
       />);
     }
@@ -97,6 +99,7 @@ export default class ScoreToolBox extends React.Component {
     return (
       <div className="tool-box tool-box--score">
         <ReactCSSTransitionGroup
+          className="tool-card-list"
           transitionName="card-left-w3"
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}

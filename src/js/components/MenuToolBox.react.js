@@ -47,6 +47,7 @@ export default class MenuToolBox extends React.Component {
     return (
       <div className="tool-box tool-box--menu">
         <ReactCSSTransitionGroup
+          className="tool-card-list"
           transitionName="card-left-w3"
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}

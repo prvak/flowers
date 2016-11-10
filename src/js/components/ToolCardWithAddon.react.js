@@ -16,8 +16,11 @@ export default class ToolCardWithAddon extends React.Component {
       );
     }
     const className = `card card-${this.props.width} card--content`;
+    const style = {
+      order: this.props.order || 0,
+    };
     return (
-      <div className="tool-card tool-card-left">
+      <div className="tool-card tool-card-left" style={style}>
         <div className="card-wrapper--outer">
           <div className="card-wrapper--inner">
             <ReactCSSTransitionGroup
@@ -49,4 +52,5 @@ ToolCardWithAddon.propTypes = {
   addon: React.PropTypes.element,
   addonKey: React.PropTypes.string,
   addonOnClick: React.PropTypes.func,
+  order: React.PropTypes.number,
 };
