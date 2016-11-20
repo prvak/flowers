@@ -6,6 +6,7 @@ import MenuToolBox from "../components/MenuToolBox.react";
 import ScoreToolBox from "../components/ScoreToolBox.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
+import Analytics from "../Analytics";
 import HtmlUtils from "../HtmlUtils";
 
 class App extends React.Component {
@@ -56,6 +57,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    Analytics.logPageView();
     gardenStore.addChangeListener(this._onChange);
     window.addEventListener("resize", this._onResize);
     this._onResize();
