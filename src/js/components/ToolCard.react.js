@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default class ToolCard extends React.Component {
   render() {
@@ -24,9 +25,9 @@ export default class ToolCard extends React.Component {
 }
 
 ToolCard.propTypes = {
-  direction: React.PropTypes.oneOf(["left", "right"]).isRequired,
-  width: React.PropTypes.string.isRequired,
-  content: React.PropTypes.element.isRequired,
-  contentOnClick: React.PropTypes.func,
-  order: React.PropTypes.number,
+  direction: PropTypes.oneOf(["left", "right"]).isRequired,
+  width: PropTypes.string.isRequired,
+  content: PropTypes.element.isRequired,
+  contentOnClick: PropTypes.func,
+  order: PropTypes.number,
 };

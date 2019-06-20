@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import Flower from "../components/Flower.react";
-import Connection from "../components/Connection.react";
-import Highlight from "../components/Highlight.react";
+import Flower from "./Flower.react";
+import Connection from "./Connection.react";
+import Highlight from "./Highlight.react";
 import GardenActions from "../actions/GardenActions";
 import Logic from "../Logic";
 import HtmlUtils from "../HtmlUtils";
@@ -24,10 +25,10 @@ class Garden extends React.Component {
   }
 
   render() {
-    const flowers = this.props.flowers;
-    const connections = this.props.connections;
-    const players = this.props.players;
-    const activePlayerId = this.props.activePlayerId;
+    const { flowers } = this.props;
+    const { connections } = this.props;
+    const { players } = this.props;
+    const { activePlayerId } = this.props;
     const activePlayer = players.get(activePlayerId);
     const elements = [];
     flowers.forEach((flower, flowerId) => {
@@ -54,7 +55,7 @@ class Garden extends React.Component {
           const key = `c-${playerId}-${lastFlowerId}-${flowerId}`;
           const zIndex = (((connectionIndex % 2) * 2) - 1) * takenAtTurn;
           elements.push(
-            <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />
+            <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />,
           );
         }
         lastFlowerId = flowerId;
@@ -81,7 +82,7 @@ class Garden extends React.Component {
       const key = `p-${playerId}`;
       const zIndex = (((connectionIndex % 2) * 2) - 1) * player.get("lastTurn");
       elements.push(
-        <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />
+        <Connection key={key} player={player} start={start} end={end} zIndex={zIndex} />,
       );
     });
     return <div onMouseMove={this._onMouseMove} className="garden">{elements}</div>;
@@ -89,11 +90,11 @@ class Garden extends React.Component {
 }
 
 Garden.propTypes = {
-  flowers: React.PropTypes.object.isRequired,
-  connections: React.PropTypes.object.isRequired,
-  players: React.PropTypes.object.isRequired,
-  activePlayerId: React.PropTypes.number.isRequired,
-  turn: React.PropTypes.number.isRequired,
+  flowers: PropTypes.object.isRequired,
+  connections: PropTypes.object.isRequired,
+  players: PropTypes.object.isRequired,
+  activePlayerId: PropTypes.number.isRequired,
+  turn: PropTypes.number.isRequired,
 };
 
 export default Garden;

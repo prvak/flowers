@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 export default class ToolCardWithAddon extends React.Component {
@@ -16,7 +17,7 @@ export default class ToolCardWithAddon extends React.Component {
           onClick={this.props.addonOnClick}
         >
           {this.props.addon}
-        </div>
+        </div>,
       );
     }
     let contentClassName = `card card-${this.props.width} card--content`;
@@ -52,12 +53,12 @@ export default class ToolCardWithAddon extends React.Component {
 }
 
 ToolCardWithAddon.propTypes = {
-  direction: React.PropTypes.oneOf(["left", "right"]).isRequired,
-  width: React.PropTypes.string.isRequired,
-  content: React.PropTypes.element.isRequired,
-  contentOnClick: React.PropTypes.func,
-  addon: React.PropTypes.element,
-  addonKey: React.PropTypes.string,
-  addonOnClick: React.PropTypes.func,
-  order: React.PropTypes.number,
+  direction: PropTypes.oneOf(["left", "right"]).isRequired,
+  width: PropTypes.string.isRequired,
+  content: PropTypes.element.isRequired,
+  contentOnClick: PropTypes.func,
+  addon: PropTypes.element,
+  addonKey: PropTypes.string,
+  addonOnClick: PropTypes.func,
+  order: PropTypes.number,
 };

@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import GardenActions from "../actions/GardenActions";
-import ToolCard from "../components/ToolCard.react";
+import ToolCard from "./ToolCard.react";
 
 export default class MenuToolBox extends React.Component {
   constructor() {
@@ -14,33 +15,40 @@ export default class MenuToolBox extends React.Component {
       GardenActions.startGame();
     };
   }
+
   render() {
     const elements = [];
-    const logoCard = (<ToolCard
-      key="logo"
-      direction="left"
-      width="w3"
-      content={<div className="logo card--centered">Flowers</div>}
-    />);
+    const logoCard = (
+      <ToolCard
+        key="logo"
+        direction="left"
+        width="w3"
+        content={<div className="logo card--centered">Flowers</div>}
+      />
+    );
     elements.push(logoCard);
 
     if (this.props.isGameStarted || this.props.isGameOver) {
-      const newGameCard = (<ToolCard
-        key="new-game"
-        direction="left"
-        width="w3"
-        content={<div className="card--centered">New Game</div>}
-        contentOnClick={this._onNewGame}
-      />);
+      const newGameCard = (
+        <ToolCard
+          key="new-game"
+          direction="left"
+          width="w3"
+          content={<div className="card--centered">New Game</div>}
+          contentOnClick={this._onNewGame}
+        />
+      );
       elements.push(newGameCard);
     } else if (!this.props.isGameStarted || this.props.isGameOver) {
-      const startGameCard = (<ToolCard
-        key="start-game"
-        direction="left"
-        width="w3"
-        content={<div className="card--centered">Start Game</div>}
-        contentOnClick={this._onStartGame}
-      />);
+      const startGameCard = (
+        <ToolCard
+          key="start-game"
+          direction="left"
+          width="w3"
+          content={<div className="card--centered">Start Game</div>}
+          contentOnClick={this._onStartGame}
+        />
+      );
       elements.push(startGameCard);
     }
 
@@ -60,6 +68,6 @@ export default class MenuToolBox extends React.Component {
 }
 
 MenuToolBox.propTypes = {
-  isGameOver: React.PropTypes.bool.isRequired,
-  isGameStarted: React.PropTypes.bool.isRequired,
+  isGameOver: PropTypes.bool.isRequired,
+  isGameStarted: PropTypes.bool.isRequired,
 };

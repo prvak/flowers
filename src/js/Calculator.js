@@ -33,8 +33,8 @@ const Calculator = {
   },
 
   _getVectorLenght: (vector) => {
-    const x = vector.x;
-    const y = vector.y;
+    const { x } = vector;
+    const { y } = vector;
     return Math.sqrt(x * x + y * y);
   },
 };

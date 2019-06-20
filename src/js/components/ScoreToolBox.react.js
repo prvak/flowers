@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import AddonRemove from "../components/AddonRemove.react";
-import AddonWinner from "../components/AddonWinner.react";
-import CardScore from "../components/CardScore.react";
-import ToolCard from "../components/ToolCard.react";
-import ToolCardWithAddon from "../components/ToolCardWithAddon.react";
+import AddonRemove from "./AddonRemove.react";
+import AddonWinner from "./AddonWinner.react";
+import CardScore from "./CardScore.react";
+import ToolCard from "./ToolCard.react";
+import ToolCardWithAddon from "./ToolCardWithAddon.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
 
@@ -19,6 +20,7 @@ export default class ScoreToolBox extends React.Component {
       GardenActions.removePlayer(playerId);
     };
   }
+
   _findBestPlayerId(players) {
     let bestScore = 0;
     let bestPlayerId = 0;
@@ -33,7 +35,7 @@ export default class ScoreToolBox extends React.Component {
   }
 
   render() {
-    const players = this.props.players;
+    const { players } = this.props;
     const bestPlayerId = this._findBestPlayerId(players);
     const elements = [];
     players.forEach((player, playerId) => {
@@ -41,9 +43,9 @@ export default class ScoreToolBox extends React.Component {
       const score = player.get("score");
       const key = `score-${color}`;
       const card = <CardScore color={color} score={score} />;
-      let addon = undefined;
-      let addonKey = undefined;
-      let addonOnClick = undefined;
+      let addon;
+      let addonKey;
+      let addonOnClick;
       if (!this.props.isGameStarted && players.size > 1) {
         addon = <AddonRemove />;
         addonKey = "remove";
@@ -60,7 +62,9 @@ export default class ScoreToolBox extends React.Component {
         width="w2"
         order={players.size - playerId}
         content={card}
-        addon={addon} addonKey={addonKey} addonOnClick={addonOnClick}
+        addon={addon}
+        addonKey={addonKey}
+        addonOnClick={addonOnClick}
       />);
       // const style = {
       // };
@@ -91,7 +95,8 @@ export default class ScoreToolBox extends React.Component {
         direction="left"
         width="w1"
         order={-1}
-        content={<div className="card--centered">+</div>} contentOnClick={addPlayer}
+        content={<div className="card--centered">+</div>}
+        contentOnClick={addPlayer}
       />);
     }
     // Reverse the order so that the player that was added latest is at the top.
@@ -112,7 +117,7 @@ export default class ScoreToolBox extends React.Component {
 }
 
 ScoreToolBox.propTypes = {
-  isGameOver: React.PropTypes.bool.isRequired,
-  isGameStarted: React.PropTypes.bool.isRequired,
-  players: React.PropTypes.object.isRequired,
+  isGameOver: PropTypes.bool.isRequired,
+  isGameStarted: PropTypes.bool.isRequired,
+  players: PropTypes.object.isRequired,
 };

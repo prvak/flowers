@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
@@ -13,11 +14,11 @@ class Flower extends React.Component {
 
   render() {
     const flower = this.props.flower.toJS();
-    const position = flower.position;
-    const x = position.x;
-    const y = position.y;
+    const { position } = flower;
+    const { x } = position;
+    const { y } = position;
     const size = GardenConstants.FLOWER_CLICK_AREA;
-    const color = flower.color;
+    const { color } = flower;
     const rotation = 0;
     const style = {
       left: `${x * 100}%`,
@@ -35,15 +36,14 @@ class Flower extends React.Component {
         className={classNames}
         style={style}
         onClick={this.onClick}
-      >
-      </div>
+      />
     );
   }
 }
 
 Flower.propTypes = {
-  flowerId: React.PropTypes.number.isRequired,
-  flower: React.PropTypes.object.isRequired,
+  flowerId: PropTypes.number.isRequired,
+  flower: PropTypes.object.isRequired,
 };
 
 export default Flower;

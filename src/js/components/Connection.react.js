@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Calculator from "../Calculator";
 
 class Connection extends React.Component {
@@ -16,10 +17,10 @@ class Connection extends React.Component {
     const ux = start.x - end.x;
     const uy = start.y - end.y;
     const width = Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2));
-    const x = end.x;
+    const { x } = end;
     const y = end.y - height / 2;
     const rotation = -Math.atan2(ux, uy) + Math.PI / 2;
-    const color = player.color;
+    const { color } = player;
     const style = {
       width: `${width * 100}%`,
       height: `${height * 100}%`,
@@ -32,16 +33,16 @@ class Connection extends React.Component {
     };
     const classNames = `connection ${color}`;
     return (
-      <div className={classNames} style={style}></div>
+      <div className={classNames} style={style} />
     );
   }
 }
 
 Connection.propTypes = {
-  player: React.PropTypes.object.isRequired,
-  start: React.PropTypes.object.isRequired,
-  end: React.PropTypes.object.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
+  player: PropTypes.object.isRequired,
+  start: PropTypes.object.isRequired,
+  end: PropTypes.object.isRequired,
+  zIndex: PropTypes.number.isRequired,
 };
 
 export default Connection;

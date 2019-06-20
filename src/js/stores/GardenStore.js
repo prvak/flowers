@@ -7,7 +7,7 @@ import Logic from "../Logic";
 import Calculator from "../Calculator";
 import Random from "../Random";
 
-const EventEmitter = events.EventEmitter;
+const { EventEmitter } = events;
 // Name of the event that is emmited on each store change.
 const CHANGE_EVENT = "change";
 
@@ -136,7 +136,7 @@ class GardenStore extends EventEmitter {
       return;
     }
     const takeAnalysis = Logic.canTakeFlower(this._activePlayerId, flowerId,
-        this._players, this._flowers, this._connections);
+      this._players, this._flowers, this._connections);
     if (takeAnalysis === false) {
       return;
     }

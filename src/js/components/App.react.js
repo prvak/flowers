@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import gardenStore from "../stores/GardenStore";
-import Garden from "../components/Garden.react";
-import MenuToolBox from "../components/MenuToolBox.react";
-import ScoreToolBox from "../components/ScoreToolBox.react";
+import Garden from "./Garden.react";
+import MenuToolBox from "./MenuToolBox.react";
+import ScoreToolBox from "./ScoreToolBox.react";
 import GardenActions from "../actions/GardenActions";
 import GardenConstants from "../constants/GardenConstants";
 import Analytics from "../Analytics";
@@ -83,26 +84,32 @@ class App extends React.Component {
   }
 
   render() {
-    const garden = (<Garden
-      flowers={this.state.flowers}
-      connections={this.state.connections}
-      players={this.state.players}
-      activePlayerId={this.state.activePlayerId}
-      turn={this.state.turn}
-    />);
+    const garden = (
+      <Garden
+        flowers={this.state.flowers}
+        connections={this.state.connections}
+        players={this.state.players}
+        activePlayerId={this.state.activePlayerId}
+        turn={this.state.turn}
+      />
+    );
     // Layer below the garden but above tool boxes. Without this layer
     // the toolbox would be visible below the garden since the garden has
     // partial transparency.
-    const underground = (<div className="underground"></div>);
-    const scoreToolBox = (<ScoreToolBox
-      isGameStarted={this.state.isGameStarted}
-      isGameOver={this.state.isGameOver}
-      players={this.state.players}
-    />);
-    const menuToolBox = (<MenuToolBox
-      isGameStarted={this.state.isGameStarted}
-      isGameOver={this.state.isGameOver}
-    />);
+    const underground = (<div className="underground" />);
+    const scoreToolBox = (
+      <ScoreToolBox
+        isGameStarted={this.state.isGameStarted}
+        isGameOver={this.state.isGameOver}
+        players={this.state.players}
+      />
+    );
+    const menuToolBox = (
+      <MenuToolBox
+        isGameStarted={this.state.isGameStarted}
+        isGameOver={this.state.isGameOver}
+      />
+    );
     // const activePlayer = this.state.activePlayer;
     // if (activePlayer) {
     //   const color = activePlayer.get("color");
@@ -114,7 +121,17 @@ class App extends React.Component {
     const style = {
       fontSize,
     };
-    return <div style={style} id="app">{garden} {underground} {menuToolBox} {scoreToolBox}</div>;
+    return (
+      <div style={style} id="app">
+        {garden}
+        {" "}
+        {underground}
+        {" "}
+        {menuToolBox}
+        {" "}
+        {scoreToolBox}
+      </div>
+    );
   }
 }
 

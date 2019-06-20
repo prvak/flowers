@@ -2,6 +2,12 @@
   "extends": "airbnb",
   "rules": {
     "quotes": [2, "double", "avoid-escape"],
-    "arrow-body-style": [2, "always"]
+    "arrow-body-style": [2, "always"],
+    "no-underscore-dangle": "off",
+    "react/no-deprecated": "off",
+    "react/destructuring-assignment": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/jsx-filename-extension": "off",
+	"react/require-default-props": "off"
   }
 }

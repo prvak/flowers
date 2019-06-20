@@ -1,12 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import GardenConstants from "../constants/GardenConstants";
 
 export default class Highlight extends React.Component {
   render() {
     const position = this.props.position.toJS();
-    const x = position.x;
-    const y = position.y;
+    const { x } = position;
+    const { y } = position;
     const size = GardenConstants.FLOWER_CLICK_AREA;
     const color = this.props.player.get("color");
     const style = {
@@ -20,12 +21,12 @@ export default class Highlight extends React.Component {
     };
     const classNames = `highlight ${color}`;
     return (
-      <div className={classNames} style={style}></div>
+      <div className={classNames} style={style} />
     );
   }
 }
 
 Highlight.propTypes = {
-  position: React.PropTypes.object.isRequired,
-  player: React.PropTypes.object.isRequired,
+  position: PropTypes.object.isRequired,
+  player: PropTypes.object.isRequired,
 };
